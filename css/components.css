@@ -230,14 +230,14 @@
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border: 2px solid var(--primary-color);
     border-radius: var(--border-radius-large);
-    padding: 2rem;
-    margin: 2rem 0;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
     text-align: center;
     box-shadow: var(--shadow-medium);
 }
 
 .podcast-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .podcast-header h3 {
@@ -259,8 +259,8 @@
 .podcast-player {
     background: white;
     border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin: 1rem 0;
+    padding: 1.2rem;
+    margin: 0.8rem 0;
     box-shadow: var(--shadow-light);
 }
 
@@ -349,7 +349,7 @@
 
 @media (max-width: 768px) {
     .podcast-intro {
-        padding: 1.5rem;
+        padding: 1.2rem;
         margin: 1rem 0;
     }
     

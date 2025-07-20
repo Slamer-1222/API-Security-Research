@@ -4106,17 +4106,18 @@
 
 /* 專案目的說明 */
 .project-purpose {
-    margin: 40px 0;
-    padding: 40px;
+    margin: 20px 0;
+    padding: 25px;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border-radius: 20px;
+    border-radius: 16px;
     border-left: 5px solid var(--primary-color);
 }
 
 .purpose-content h2 {
     color: var(--secondary-color);
-    margin-bottom: 25px;
-    font-size: 1.8em;
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-size: 1.6em;
 }
 
 .purpose-content p {
@@ -4559,8 +4560,8 @@
     }
     
     .project-purpose {
-        padding: 25px;
-        margin: 30px 0;
+        padding: 20px;
+        margin: 15px 0;
     }
     
     .highlight-item {
