@@ -3,6 +3,9 @@
 # 開發文件（包含敏感技術資訊）
 docs/
 GITHUB_PAGES_DEPLOYMENT.md
+DEPLOYMENT_SECURITY_GUIDE.md
+GITIGNORE_USAGE_GUIDE.md
+STEP_BY_STEP_DEPLOYMENT.md
 PROJECT_*.md
 CSS_OPTIMIZATION_PLAN.md
 DEVELOPMENT_HISTORY.md
@@ -15,10 +18,15 @@ DEVELOPMENT_HISTORY.md
 # 開發工具文件
 .vscode/
 .idea/
+.claude/
 *.log
 
 # 臨時文件
 .DS_Store
 Thumbs.db
+
+# 其他不需要的檔案
+*第二階段*
+*討論內容*
 
 # 注意：README.md 保留，因為它是 GitHub 標準專案說明
