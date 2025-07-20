@@ -35,29 +35,24 @@
 
 ```
 /
-├── index.html                    # 首頁
-├── executive_summary.html        # 高階主管摘要
-├── api_trends.html              # API 安全趨勢
-├── owasp_api_matrix.html        # OWASP 風險矩陣
-├── manufacturing_api_risk_matrix.html # 製造業風險
-├── api_security_recommendations.html # API 安全建議
-├── nist_csf_matrix.html         # NIST 框架
-├── interactive_matrix.html      # 互動式矩陣
-├── risk_solution_matrix.html    # 總結方案
-├── glossary.html               # 詞彙表
+├── index.html                    # 🏠 網站首頁
+├── executive_summary.html        # 📊 高階主管摘要
+├── api_trends.html              # 📈 API 安全趨勢
+├── owasp_api_matrix.html        # ⚠️ OWASP 風險矩陣
+├── manufacturing_api_risk_matrix.html # 🏭 製造業風險
+├── api_security_recommendations.html # 🛡️ API 安全建議
+├── nist_csf_matrix.html         # 🏛️ NIST 框架
+├── interactive_matrix.html      # 🎯 互動式矩陣
+├── risk_solution_matrix.html    # 📋 總結方案
+├── glossary.html               # 📚 專業術語詞彙表
 ├── assets/
-│   └── images/                 # 圖片資源
+│   └── images/                 # 🖼️ 圖片與視覺資源
 │       ├── cloudcorce-01.png  # 公司標誌
 │       └── Cloudforce-02.png  # 額外標誌
-├── css/
-│   ├── base.css               # 基礎樣式
-│   ├── components.css         # 組件樣式
-│   └── pages.css              # 頁面樣式
-└── docs/                      # 專案文件
-    ├── README.md              # 文件導航
-    ├── PROJECT_STATUS_REPORT.md # 專案狀態報告
-    ├── DEVELOPMENT_HISTORY.md   # 開發歷程
-    └── CSS_OPTIMIZATION_PLAN.md # CSS 優化記錄
+└── css/
+    ├── base.css               # 基礎樣式與變數
+    ├── components.css         # 可重用組件樣式
+    └── pages.css              # 頁面專用樣式
 ```
 
 ## 🚀 本地開發
@@ -100,13 +95,20 @@
 - ✅ Safari 12+
 - ✅ Edge 79+
 
-## 📖 文件資源
+## 📖 學習資源
 
-詳細的專案文件位於 `docs/` 目錄：
+### 🎯 **完整學習路徑**
+本網站提供循序漸進的 API 安全學習體驗：
+1. **基礎認知** → [API 安全趨勢](api_trends.html)
+2. **風險識別** → [OWASP 風險矩陣](owasp_api_matrix.html)  
+3. **行業聚焦** → [製造業專屬風險](manufacturing_api_risk_matrix.html)
+4. **防護策略** → [API 安全建議](api_security_recommendations.html)
+5. **框架整合** → [NIST 框架](nist_csf_matrix.html) + [互動式工具](interactive_matrix.html)
+6. **總結實施** → [解決方案矩陣](risk_solution_matrix.html)
 
-- **[專案狀態報告](docs/PROJECT_STATUS_REPORT.md)** - 最新技術狀態
-- **[開發歷程記錄](docs/DEVELOPMENT_HISTORY.md)** - 專案演進歷史
-- **[CSS 優化計劃](docs/CSS_OPTIMIZATION_PLAN.md)** - 技術架構說明
+### 📚 **快速參考**
+- **[高階主管摘要](executive_summary.html)** - 決策者三分鐘快速了解
+- **[專業術語詞彙表](glossary.html)** - API 安全完整術語解釋
 
 ## 🔧 維護與更新
 
