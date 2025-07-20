@@ -124,13 +124,6 @@
                     <button class="chapter-btn" onclick="seekToChapter(360)">🎯 行動指南</button>
                 </div>
             </div>
-            
-            <div class="skip-option">
-                <p style="color: var(--text-color-light); font-size: 0.9em; margin-bottom: 1rem;">
-                    偏好文字閱讀？您可以直接跳過語音導覽
-                </p>
-                <button class="skip-btn" onclick="scrollToLearningPath()">📝 略過，直接進入學習路徑</button>
-            </div>
         </div>
 
         <!-- 學習路徑進度指示器 -->
@@ -336,13 +329,6 @@
             audio.playbackRate = parseFloat(rate);
         }
         
-        // 跳轉到學習路徑
-        function scrollToLearningPath() {
-            document.getElementById('learningPath').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
         
         // 音頻播放追踪（可選）
         audio.addEventListener('play', function() {
