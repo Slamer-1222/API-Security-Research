@@ -36,6 +36,7 @@
                 <button class="dropbtn">方案總結 &#9662;</button>
                 <div class="dropdown-content">
                     <a href="risk_solution_matrix.html">總結方案</a>
+                    <a href="implementation_blueprint.html">實施藍圖</a>
                     <a href="glossary.html">專有名詞詞彙表</a>
                 </div>
             </div>
@@ -55,7 +56,7 @@
         <main>
             <div class="card problem-core-card">
                 <h2>問題核心：為何 API 安全是製造業的當務之急？</h2>
-                <p>在工業 4.0 的浪潮下，API (應用程式介面) 已成為串連供應鏈、智慧工廠 (OT/IT 整合) 與雲端服務的數位神經。然而，這種高度互聯也帶來了新的攻擊面。</p>
+                <p>在工業 4.0 的轉型中，API (應用程式介面) 已成為企業數位資產的主要暴露點，直接關係到營運持續性與市場信譽。每一次生產排程、供應鏈協同、與客戶交貨，都依賴這些關鍵數位介面。一旦遭受攻擊，後果不僅是技術問題，更是營運中斷與競爭力流失的商業危機。</p>
                 
                 <div class="key-statistic-visual">
                     <div class="progress-container">
@@ -92,7 +93,15 @@
                     </div>
                 </div>
                 
-                <p>傳統防火牆無法有效防禦針對 API 的業務邏輯攻擊，使我們的核心生產與營運數據暴露於巨大風險之中。</p>
+                <div class="business-impact">
+                    <h4>💼 關鍵業務衝擊警示</h4>
+                    <ul>
+                        <li><strong>營運中斷</strong>：生產線因惡意 API 呼叫而停擺，每小時損失可達數百萬營收</li>
+                        <li><strong>智慧財產權外洩</strong>：產品設計圖、製程配方等核心資產遭竊，喪失市場競爭優勢</li>
+                        <li><strong>供應鏈信任危機</strong>：因自身漏洞影響上下游合作夥伴，破壞長期合作關係</li>
+                        <li><strong>法規合規風險</strong>：違反 GDPR、個資法等法規，面臨鉅額罰款與商譽損失</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="card risk-summary-card">
@@ -101,37 +110,37 @@
                 <div class="action-plan-grid">
                     <div class="card action-card risk-card-style">
                         <h3>1. 供應鏈的數位信任危機</h3>
-                        <p>我們的生產力高度依賴第三方供應商的 API，但安全標準參差不齊，已成為駭客入侵破口。</p>
+                        <p><strong>商業風險</strong>：關鍵原料供應中斷、客戶訂單無法如期交貨。我們的生產效率高度依賴第三方供應商的 API 介接，但合作夥伴的安全防護參差不齊，已成為攻擊者滲透的主要破口。</p>
                         <div class="api-reference"><span class="api-highlight">(API10: 不安全的 API 消耗)</span></div>
                     </div>
                     <div class="card action-card risk-card-style">
                         <h3>2. 內部權限的過度開放</h3>
-                        <p>開發與維運人員的 API 存取權限過大，缺乏有效監控，易導致內部威脅或帳號被盜後的災難性後果。</p>
+                        <p><strong>商業風險</strong>：核心製程技術外洩、競爭對手獲取商業機密。內部人員的 API 存取權限缺乏細緻管控，一旦帳號遭盜用或出現內部威脅，將直接威脅企業最核心的競爭優勢。</p>
                         <div class="api-reference"><span class="api-highlight">(API1-3: 授權相關漏洞)</span></div>
                     </div>
                     <div class="card action-card risk-card-style">
                         <h3>3. 看不見的「影子 API」</h3>
-                        <p>未經盤點和管理的測試用、舊版本或未記錄的 API 遍布各處，它們是駭客最愛的攻擊入口，而我們對其可視性幾乎為零。</p>
+                        <p><strong>商業風險</strong>：生產系統遭未知管道入侵、客戶資料大規模外洩。未經盤點的測試、舊版本或遺留 API 如同企業的「後門」，攻擊者可在無人察覺下長期潛伏，竊取核心營運資料。</p>
                         <div class="api-reference"><span class="api-highlight">(API9: 資產管理不當)</span></div>
                     </div>
                 </div>
             </div>
 
             <div class="card action-plan-section">
-                <h2>行動方案：最重要的三項投資</h2>
-                <p>為了保護我們的核心資產與營運連續性，我們建議立即啟動以下三項行動：</p>
+                <h2>行動方案：保護營收與競爭力的三項關鍵投資</h2>
+                <p>為了確保營運不中斷、智慧財產權不外洩、客戶信任不流失，我們建議董事會立即核准以下三項策略性投資：</p>
                 <div class="action-plan-grid">
                     <div class="card action-card">
-                        <h3>1. 導入「API 資產可視化」方案</h3>
-                        <p>我們無法保護看不見的東西。必須立即全面盤點所有 API，找出「影子 API」，並評估其風險等級。這是所有防禦的基礎。</p>
+                        <h3>1. 導入「API 資產全視圖」解決方案</h3>
+                        <p><strong>投資回報</strong>：避免因未知漏洞導致的營運中斷損失。我們必須立即掌握所有 API 資產現況，特別是那些可能被遺忘但仍在運行的「影子 API」，它們往往是最脆弱的攻擊入口點。</p>
                     </div>
                     <div class="card action-card">
-                        <h3>2. 部署「AI 驅動的 API 威脅偵測」</h3>
-                        <p>傳統規則式防禦已失效。我們需要能理解正常業務邏輯、並即時偵測異常 API 行為 (如機器人濫用、資料竊取) 的新一代 AI 防護，實現「AI vs. AI」的對抗。</p>
+                        <h3>2. 部署「智能 API 威脅防護系統」</h3>
+                        <p><strong>投資回報</strong>：預防智慧財產權竊取與客戶資料外洩的鉅額損失。傳統防護無法識別針對業務邏輯的攻擊，我們需要能即時偵測異常存取模式、保護核心營運資料的新世代防護方案。</p>
                     </div>
                     <div class="card action-card">
-                        <h3>3. 建立「API 零信任架構」</h3>
-                        <p>預設不信任任何內部或外部的 API 呼叫。對每一次 API 存取都進行嚴格的身份驗證與權限檢查，確保最小權限原則的落實。</p>
+                        <h3>3. 建立「零信任 API 安全架構」</h3>
+                        <p><strong>投資回報</strong>：確保供應鏈合作夥伴信任與長期商業關係。對所有 API 存取實施嚴格驗證，防止因內部威脅或帳號盜用造成的信任危機，維護企業在供應鏈中的可靠夥伴地位。</p>
                     </div>
                 </div>
             </div>
