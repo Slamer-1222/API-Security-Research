@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>製造業風險 | Cloudforce 紘瑒科技 - API 安全研究專案</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="assets/images/cloudcorce-01.png" alt="Cloudforce Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">首頁</a>
+            <a href="executive_summary.html">高階主管摘要</a>
+            <div class="dropdown">
+                <button class="dropbtn">掌握API安全 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_trends.html">API安全趨勢</a>
+                    <a href="owasp_api_matrix.html">常見風險</a>
+                    <a href="manufacturing_api_risk_matrix.html" class="active">製造業風險</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">API 安全對策 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_security_recommendations.html">API 安全建議</a>
+                    <a href="nist_csf_matrix.html">NIST 框架</a>
+                    <a href="interactive_matrix.html">互動式矩陣</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">方案總結 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="risk_solution_matrix.html">總結方案</a>
+                    <a href="glossary.html">專有名詞詞彙表</a>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜尋...">
+            <div id="search-results"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>高科技製造業高風險項目 vs API安全對應分析矩陣</h1>
+            <p>基於iThome 2024年資安大調查的深度分析，探索高科技製造業面臨的API安全挑戰與解決方案。</p>
+        </header>
+        
+        <div class="card">
+            <p style="margin-bottom: 20px; padding: 15px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 8px; border-left: 4px solid var(--primary-color); font-size: 0.95em; line-height: 1.6;">
+                針對iThome 2024年資安大調查中，「高科技製造業」資安風險地圖第一象限的13項高風險資安威脅項目，究竟存在哪些API安全相關的潛在隱憂與防護建議？
+            </p>
+            <h3>📊 分析框架說明</h3>
+            <p><strong>威脅程度評估：</strong></p>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin: 15px 0;">
+                <span class="threat-level-direct">直接威脅</span>
+                <span class="threat-level-indirect">間接威脅</span>
+                <span class="threat-level-potential">潛在威脅</span>
+            </div>
+            <p style="margin-top: 20px;"><strong>分析維度：</strong></p>
+            <p style="margin-top: 10px; font-size: 0.9em; color: var(--text-color-light); padding: 15px; background: var(--background-color); border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                高風險項目 → 主要API威脅 → 潛在隱憂 → 既有防護盲點 → 建議防護措施
+            </p>
+        </div>
+        
+        <div class="risk-matrix-grid">
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>勒索軟體資安事件</h3>
+                            <span class="threat-level-direct">直接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API4: 資源消耗 | API8: 配置錯誤</span>
+                            <p>勒索軟體可能透過API進行資料加密前的大量存取</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>API端點被利用進行大量資料讀取</li>
+                                <li>透過API Token竊取進行橫向移動</li>
+                                <li>備份API被攻擊導致備份失效</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>傳統防毒無法偵測API層面的異常存取</li>
+                                <li>網路隔離無法防止已授權API的濫用</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>API存取頻率監控與限制</li>
+                                <li>API Token定期輪換機制</li>
+                                <li>關鍵API的行為基線建立</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>資安漏洞/零時差漏洞攻擊事件</h3>
+                            <span class="threat-level-direct">直接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API7: SSRF | API1-5: 各類授權繞過</span>
+                            <p>零時差攻擊常利用API未知漏洞進行滲透</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>API新漏洞無現有特徵碼防護</li>
+                                <li>API邏輯漏洞難以自動檢測</li>
+                                <li>微服務API間的信任關係被濫用</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>WAF規則庫對零時差API攻擊反應滯後</li>
+                                <li>API Gateway缺乏深度封包檢測</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>AI驅動的API異常行為偵測</li>
+                                <li>API白名單機制實施</li>
+                                <li>微服務間零信任架構</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>駭客攻擊</h3>
+                            <span class="threat-level-indirect">間接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API9: 盤點管理不當 | API6: 敏感業務流濫用</span>
+                            <p>駭客常透過未被發現的API進行攻擊</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>影子API成為攻擊入口</li>
+                                <li>開發測試API暴露生產環境</li>
+                                <li>第三方整合API權限過大</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>網路掃描無法發現應用層API</li>
+                                <li>傳統IDS對API攻擊模式認知不足</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>全面API資產盤點與管理</li>
+                                <li>API版本生命週期管理</li>
+                                <li>API存取權限最小化原則</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>商業郵件詐騙BEC</h3>
+                            <span class="threat-level-direct">直接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API5: 功能層級授權 | API10: 不安全API消耗</span>
+                            <p>BEC攻擊可能利用財務API進行未授權交易</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>財務API缺乏多重驗證</li>
+                                <li>供應商API整合權限過大</li>
+                                <li>郵件系統API被濫用進行內部偵察</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>郵件安全閘道無法檢查API層面活動</li>
+                                <li>ERP系統API授權機制不夠細緻</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>財務API強制多因素認證</li>
+                                <li>高價值交易API人工審核機制</li>
+                                <li>API呼叫者身分深度驗證</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>釣魚網站</h3>
+                            <span class="threat-level-indirect">間接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API2: 身份認證破解 | API3: 資料暴露</span>
+                            <p>釣魚網站竊取憑證後透過API存取資料</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>API Token透過釣魚網站被竊取</li>
+                                <li>單點登入API成為攻擊目標</li>
+                                <li>行動APP API金鑰暴露</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>網頁過濾器無法防護API層面的憑證濫用</li>
+                                <li>使用者教育無法涵蓋API安全意識</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>API Token短期有效性設計</li>
+                                <li>異常登入位置API存取限制</li>
+                                <li>API存取地理位置驗證</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>社交工程手段</h3>
+                            <span class="threat-level-potential">潛在威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API1: 物件層級授權 | API9: 盤點管理</span>
+                            <p>內部人員被誘騙提供API存取權限</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>開發人員洩露API金鑰</li>
+                                <li>管理員權限API被冒用</li>
+                                <li>客服API被濫用存取客戶資料</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>人員安全訓練未涵蓋API金鑰保護</li>
+                                <li>內部威脅偵測系統API監控不足</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>API金鑰管理政策與訓練</li>
+                                <li>敏感API操作雙人授權</li>
+                                <li>API存取行為異常偵測</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>ChatGPT/GAI成為攻擊輔助工具</h3>
+                            <span class="threat-level-direct">直接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API4: 資源消耗 | API6: 敏感業務流</span>
+                            <p>AI工具大量呼叫API進行自動化攻擊</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>AI工具自動化API漏洞挖掘</li>
+                                <li>大量API請求進行暴力破解</li>
+                                <li>AI生成變異攻擊payload繞過防護</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>傳統頻率限制無法應對AI級別攻擊</li>
+                                <li>簽名檢測無法識別AI生成的變異攻擊</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>AI驅動的API防護機制</li>
+                                <li>動態API行為模式學習</li>
+                                <li>人機驗證整合API存取</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>雲端服務/網路服務資安事件</h3>
+                            <span class="threat-level-direct">直接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API10: 不安全API消耗 | API8: 配置錯誤</span>
+                            <p>雲端服務API成為攻擊跳板或資料外洩管道</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>雲端API配置錯誤導致資料暴露</li>
+                                <li>多雲環境API權限管理複雜</li>
+                                <li>雲端供應商API漏洞影響客戶</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>雲端責任共擔模式下API安全責任不清</li>
+                                <li>混合雲API流量可視性不足</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>雲端API安全配置檢查自動化</li>
+                                <li>多雲API統一安全策略</li>
+                                <li>雲端API流量加密與監控</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>被植入竊資軟體/後門木馬</h3>
+                            <span class="threat-level-indirect">間接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API3: 屬性層級授權 | API9: 盤點管理</span>
+                            <p>惡意軟體透過合法API進行資料竊取</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>惡意軟體濫用合法API Token</li>
+                                <li>後門程式建立隱藏API端點</li>
+                                <li>資料外傳透過API偽裝正常流量</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>EDR無法識別合法API的惡意使用</li>
+                                <li>DLP系統對API加密流量檢測困難</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>API流量行為基線與異常偵測</li>
+                                <li>API端點完整性監控</li>
+                                <li>資料外傳API白名單機制</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>資料外洩事件</h3>
+                            <span class="threat-level-direct">直接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API3: 屬性層級授權 | API1: 物件層級授權</span>
+                            <p>API授權機制缺陷導致敏感資料大量外洩</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>API回應包含過多敏感欄位</li>
+                                <li>批量API查詢繞過存取限制</li>
+                                <li>API錯誤訊息洩露系統資訊</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>資料庫加密無法防護API層面的過度授權</li>
+                                <li>網路監控難以理解API資料語義</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>API回應資料最小化原則</li>
+                                <li>API存取日誌詳細記錄與分析</li>
+                                <li>敏感資料API動態遮罩</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>以第三方為跳板的攻擊</h3>
+                            <span class="threat-level-direct">直接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API10: 不安全API消耗 | API7: SSRF</span>
+                            <p>供應鏈API成為攻擊入口或橫向移動路徑</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>供應商API安全標準不一致</li>
+                                <li>B2B API整合缺乏安全驗證</li>
+                                <li>第三方API漏洞影響內部系統</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>供應商安全評估未涵蓋API安全</li>
+                                <li>網路邊界防護無法管控應用層API整合</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>第三方API安全認證要求</li>
+                                <li>API整合安全測試自動化</li>
+                                <li>供應商API安全持續監控</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>網路犯罪者</h3>
+                            <span class="threat-level-indirect">間接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">全方位API威脅 | 商業化攻擊工具</span>
+                            <p>專業攻擊者具備API攻擊專業知識與工具</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>攻擊者API漏洞挖掘能力持續提升</li>
+                                <li>暗網API攻擊工具與教學資源</li>
+                                <li>API攻擊手法快速演進</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>安全團隊API安全專業知識不足</li>
+                                <li>威脅情報對API攻擊涵蓋不全</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>API安全專業培訓與認證</li>
+                                <li>API威脅情報收集與分享</li>
+                                <li>紅隊演練包含API攻擊場景</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapsible-risk-card">
+                <button class="risk-collapsible" onclick="toggleRiskCard(this)">
+                    <div class="risk-preview">
+                        <div class="risk-title-section">
+                            <h3>內部人員是攻擊者</h3>
+                            <span class="threat-level-direct">直接威脅</span>
+                        </div>
+                        <div class="api-threat-preview">
+                            <span class="api-threat">API1-5: 各類授權濫用 | API9: 管理盲點</span>
+                            <p>內部人員具備API存取權限與系統知識</p>
+                        </div>
+                    </div>
+                    <span class="collapsible-icon">▼</span>
+                </button>
+                <div class="risk-details-content">
+                    <div class="risk-details">
+                        <div class="detail-section">
+                            <h5>📍 潛在API隱憂</h5>
+                            <ul>
+                                <li>特權API帳號被內部人員濫用</li>
+                                <li>開發人員API後門植入</li>
+                                <li>管理員API權限過度集中</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>⚠️ 既有防護盲點</h5>
+                            <ul>
+                                <li>內部威脅偵測對合法API存取盲點</li>
+                                <li>API存取權限管理缺乏定期審查</li>
+                            </ul>
+                        </div>
+                        <div class="detail-section">
+                            <h5>✓ 建議防護措施</h5>
+                            <ul>
+                                <li>API權限最小化與定期審查</li>
+                                <li>敏感API操作強制雙人授權</li>
+                                <li>API存取行為異常基線偵測</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>📋 關鍵洞察與建議</h3>
+            <div class="learning-path">
+                <div class="card">
+                    <h4>🔴 最高風險API威脅</h4>
+                    <p><strong>API4 (資源消耗)</strong> 和 <strong>API10 (不安全API消耗)</strong> 在多個風險項目中重複出現，顯示供應鏈API安全與資源管理是關鍵弱點。</p>
+                </div>
+                
+                <div class="card">
+                    <h4>🛡️ 防護盲點總結</h4>
+                    <p>傳統安全工具(WAF、EDR、DLP)在API層面的可視性與控制能力不足，需要API專用安全解決方案。</p>
+                </div>
+                
+                <div class="card">
+                    <h4>🤖 AI威脅新挑戰</h4>
+                    <p>ChatGPT/GAI攻擊代表新型威脅，需要AI驅動的防護機制來對抗AI級別的自動化攻擊。</p>
+                </div>
+                <div class="card">
+                    <h4>🔗 供應鏈API風險</h4>
+                    <p>第三方API整合與雲端服務API成為攻擊熱點，需建立供應商API安全標準與持續監控機制。</p>
+                </div>
+                
+                <div class="card">
+                    <h4>👥 內部威脅管控</h4>
+                    <p>內部人員API權限濫用風險極高，需實施API權限最小化原則與行為異常偵測。</p>
+                </div>
+                
+                <div class="card">
+                    <h4>📊 建議優先順序</h4>
+                    <p><strong>1.</strong> API資產盤點與可視化<br>
+                    <strong>2.</strong> API異常行為偵測<br>
+                    <strong>3.</strong> 供應鏈API安全評估<br>
+                    <strong>4.</strong> 內部API權限管理強化</p>
+                </div>
+                
+            </div>
+            
+            <div class="card">
+                <h3>🎯 整體評估結論</h3>
+                <p>高科技製造業面臨的API安全威脅已達到前所未有的嚴峻程度。<strong>61%的高風險項目直接涉及API安全</strong>，
+                    傳統防護措施已無法應對新型態的AI攻擊、供應鏈風險和內部威脅。
+                </p>
+                <p>
+                    <strong>MatrixScope</strong>、<strong>MatrixShield</strong>、<strong>SandSphere</strong> 三產品組合
+                    能提供從開發階段到運行時的完整API安全防護，有效應對13個高風險項目中的關鍵威脅。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-navigation">
+        <a href="owasp_api_matrix.html" class="btn btn-secondary">
+            &larr; 上一步：常見風險
+        </a>
+        <a href="api_security_recommendations.html" class="btn btn-primary">
+            下一步：防禦與建議 &rarr;
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Cloudforce 紘瑒科技 - API 安全研究專案</p>
+    </footer>
+
+    <script>
+        function toggleRiskCard(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.collapsible-icon');
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                button.classList.remove('active');
+            } else {
+                content.classList.add('active');
+                button.classList.add('active');
+            }
+        }
+
+        const searchPages = [
+            { url: 'index.html', title: '首頁', keywords: 'home, main, index' },
+            { url: 'executive_summary.html', title: '高階主管摘要', keywords: 'summary, executive, report' },
+            { url: 'glossary.html', title: '專有名詞詞彙表', keywords: 'glossary, terms, definitions' },
+            { url: 'api_trends.html', title: '基礎入門', keywords: 'learning, introduction, basic' },
+            { url: 'owasp_api_matrix.html', title: '常見風險 (OWASP)', keywords: 'owasp, risk, matrix, top 10' },
+            { url: 'manufacturing_api_risk_matrix.html', title: '製造業風險', keywords: 'manufacturing, industry, risk' },
+            { url: 'api_security_recommendations.html', title: '防禦與建議', keywords: 'recommendations, defense, solution' },
+            { url: 'nist_csf_matrix.html', title: 'NIST 框架', keywords: 'nist, csf, framework' },
+            { url: 'interactive_matrix.html', title: '互動式矩陣', keywords: 'interactive, matrix, defense' },
+            { url: 'risk_solution_matrix.html', title: '總結方案', keywords: 'solution, summary, matrix' }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('keyup', () => {
+            const query = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredPages = searchPages.filter(page => 
+                    page.title.toLowerCase().includes(query) || 
+                    page.keywords.toLowerCase().includes(query)
+                );
+
+                if (filteredPages.length > 0) {
+                    filteredPages.forEach(page => {
+                        const link = document.createElement('a');
+                        link.href = page.url;
+                        link.textContent = page.title;
+                        searchResults.appendChild(link);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動式矩陣 | API 安全研究專案</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc; /* Tailwind gray-50 */
+        }
+        .matrix-cell {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .matrix-cell:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .matrix-cell.active {
+            background-color: #4f46e5; /* Tailwind indigo-600 */
+            color: white;
+            border-color: #4f46e5;
+            transform: scale(1.05);
+        }
+        .matrix-cell.active h3, .matrix-cell.active p {
+            color: white;
+        }
+        .detail-card {
+            transition: opacity 0.3s ease-in-out;
+        }
+        /* Custom scrollbar for better aesthetics */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9; /* gray-100 */
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1; /* gray-300 */
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; /* gray-400 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 p-4 sm:p-6 md:p-8">
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="assets/images/cloudcorce-01.png" alt="Cloudforce Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">首頁</a>
+            <a href="executive_summary.html">高階主管摘要</a>
+            <div class="dropdown">
+                <button class="dropbtn">掌握API安全 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_trends.html">API安全趨勢</a>
+                    <a href="owasp_api_matrix.html">常見風險</a>
+                    <a href="manufacturing_api_risk_matrix.html">製造業風險</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">API 安全對策 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_security_recommendations.html">API 安全建議</a>
+                    <a href="nist_csf_matrix.html">NIST 框架</a>
+                    <a href="interactive_matrix.html" class="active">互動式矩陣</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">方案總結 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="risk_solution_matrix.html">總結方案</a>
+                    <a href="glossary.html">專有名詞詞彙表</a>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜尋...">
+            <div id="search-results"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>互動式 API 安全防禦矩陣</h1>
+            <p>基於網路防禦矩陣 (Cyber Defense Matrix) 框架，提供全面的 API 安全控制指南</p>
+        </header>
+        
+        <div class="card">
+            <h4>💡 使用指南</h4>
+            <p>點擊下方矩陣中的任何一個單元格，即可在右側面板中查看詳細的安全目標、關鍵控制措施與相關技術。此矩陣涵蓋五大資產類別與五個安全功能，共25個安全領域。</p>
+        </div>
+
+        <!-- Main Content: Matrix and Details Panel -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Side: Interactive Matrix -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-lg">
+                <div class="grid grid-cols-6 gap-1 text-center font-bold text-gray-700">
+                    <div><!-- Empty corner --></div>
+                    <div class="p-2">識別<br>(IDENTIFY)</div>
+                    <div class="p-2">防護<br>(PROTECT)</div>
+                    <div class="p-2">偵測<br>(DETECT)</div>
+                    <div class="p-2">應變<br>(RESPOND)</div>
+                    <div class="p-2">復原<br>(RECOVER)</div>
+                </div>
+                <div id="cdm-matrix" class="grid grid-cols-6 gap-2 md:gap-4 mt-2">
+                    <!-- Rows will be dynamically generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Right Side: Details Panel -->
+            <aside class="lg:col-span-1">
+                <div id="details-panel" class="sticky top-8 bg-white p-6 rounded-2xl shadow-lg h-auto lg:h-[80vh] flex flex-col">
+                    <!-- Content will be dynamically populated by JavaScript -->
+                    <div id="details-content" class="flex-grow overflow-y-auto custom-scrollbar pr-2">
+                        <div class="text-center text-gray-500 h-full flex flex-col justify-center items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3.5m0 0V11" />
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-700">API 安全控制措施</h3>
+                            <p class="mt-2">請從左側矩陣中選擇一個單元格以查看詳細資訊。</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+<script>
+// Data source based on the provided document "API 安全的CDM框架"
+const cdmData = {
+    "1.1": {
+        title: "識別 - API 主機基礎設施",
+        objective: "維護一份完整、準確且即時更新的 API 運行環境資產清單，包括其詳細組態、已知漏洞及安全狀態。",
+        controls: [
+            "<strong>基礎設施資產盤點：</strong> 利用 CSPM 等工具自動化發現與盤點主機、容器、無伺服器函數及 K8s 叢集。",
+            "<strong>漏洞掃描與管理：</strong> 對主機 OS、容器映像檔及軟體套件進行持續性漏洞掃描 (CVEs)。",
+            "<strong>組態基準審核：</strong> 定期審核基礎設施組態，並與 CIS Benchmarks 等安全基準進行比對。",
+            "<strong>遵循 NIST 指南：</strong> 參考並應用 NIST SP 800-190 (容器安全) 及 SP 800-53 (資產管理) 的建議。"
+        ],
+        technologies: "CSPM, 漏洞掃描器, CIS都合規性掃描工具"
+    },
+    "1.2": {
+        title: "防護 - API 主機基礎設施",
+        objective: "透過強化 (Hardening) 與隔離措施，最小化 API 主機基礎設施的攻擊面，防止未經授權的存取與惡意活動。",
+        controls: [
+            "<strong>主機與容器強化：</strong> 採用最小化的基礎映像檔，移除不必要的套件，並禁止容器以 root 身份運行。",
+            "<strong>核心安全模組：</strong> 在 Linux 主機上啟用 AppArmor/SELinux，並使用 seccomp 過濾器限制系統呼叫。",
+            "<strong>網路隔離：</strong> 實施網路分段，在 K8s 中利用 Network Policies 嚴格控制 Pod 間流量。",
+            "<strong>存取控制強化：</strong> 嚴格限制對主機的直接存取 (SSH)，並強制實施 MFA。"
+        ],
+        technologies: "容器強化工具, AppArmor/SELinux, K8s Network Policy"
+    },
+    "1.3": {
+        title: "偵測 - API 主機基礎設施",
+        objective: "即時偵測 API 主機基礎設施上的異常行為、入侵企圖及惡意活動。",
+        controls: [
+            "<strong>容器執行期安全監控：</strong> 部署 Falco、Sysdig 等工具，監控系統呼叫、程序執行等異常行為。",
+            "<strong>端點偵測與應變 (EDR/CWPP)：</strong> 在主機節點上部署 EDR 或 CWPP，偵測惡意軟體及進階威脅。",
+            "<strong>檔案完整性監控 (FIM)：</strong> 追蹤關鍵系統檔案與組態檔的變更，偵測 Rootkit 或後門。",
+            "<strong>日誌集中與分析：</strong> 將所有日誌發送到 SIEM 平台進行關聯分析與異常偵測。"
+        ],
+        technologies: "CWPP/EDR, 容器執行期安全 (Falco), FIM, SIEM"
+    },
+    "1.4": {
+        title: "應變 - API 主機基礎設施",
+        objective: "在偵測到主機層級的安全事件後，能夠迅速採取行動，隔離受影響的資產，清除威脅，並進行損害評估。",
+        controls: [
+            "<strong>自動化隔離：</strong> 建立 Playbook，自動將受感染的 Pod 或主機從服務中隔離。",
+            "<strong>鑑識資料採集：</strong> 對隔離資產進行快照或提取鑑識映像 (記憶體、磁碟) 以保存證據。",
+            "<strong>威脅根除：</strong> 終止惡意程序、刪除惡意檔案，並清理持久化機制。"
+        ],
+        technologies: "SOAR, 自動化隔離腳本"
+    },
+    "1.5": {
+        title: "復原 - API 主機基礎設施",
+        objective: "從主機層級的安全事件中安全地恢復服務，並從事件中吸取教訓，強化未來防禦。",
+        controls: [
+            "<strong>不可變基礎設施：</strong> 直接銷毀受感染的實例，並從黃金映像檔重新部署乾淨的實例。",
+            "<strong>備份與還原驗證：</strong> 定期備份關鍵組態 (如 etcd) 與持久化儲存，並進行還原演練。",
+            "<strong>經驗學習與強化：</strong> 進行根本原因分析，並將結果反饋至「識別」與「防護」階段。"
+        ],
+        technologies: "不可變基礎設施 (IaC), 備份與還原方案"
+    },
+    "2.1": {
+        title: "識別 - API 端點與業務邏輯",
+        objective: "建立一個全面且持續更新的 API 清單，包括所有端點、其預期功能、業務邏輯、版本資訊及規格文件，特別是識別出「影子 API」與「殭屍 API」。",
+        controls: [
+            "<strong>API 自動化發現與盤點：</strong> 部署 API 發現工具，分析流量、程式碼庫、CI/CD 管線來盤點所有 API。",
+            "<strong>規格文件管理：</strong> 為所有 API 維護 OpenAPI (Swagger) 規格文件，定義路徑、方法、參數等。",
+            "<strong>動態應用程式安全測試 (DAST)：</strong> 使用 DAST 工具掃描運行中的 API，以發現運行時漏洞。",
+            "<strong>業務邏輯映射：</strong> 理解並記錄每個 API 端點背後的業務流程，以識別濫用風險。"
+        ],
+        technologies: "API 發現工具, DAST, SAST, OpenAPI/Swagger"
+    },
+    "2.2": {
+        title: "防護 - API 端點與業務邏輯",
+        objective: "實施強健的存取控制與輸入驗證，以防止 OWASP API Top 10 中最常見的授權與注入類攻擊。",
+        controls: [
+            "<strong>強制執行精細授權：</strong> 對每個請求嚴格執行 BOLA, BFLA, BOPLA 檢查，驗證用戶對物件、屬性、功能的權限。",
+            "<strong>強健的身份驗證：</strong> 採用 OAuth 2.1/OIDC 標準，強制使用 PKCE。對 M2M 通訊使用 mTLS。",
+            "<strong>輸入驗證與規格強制執行：</strong> 根據 OpenAPI 規格嚴格驗證所有傳入請求，形成「正面安全模型」。",
+            "<strong>API 閘道器策略集中化：</strong> 將驗證、授權、速率限制等通用安全策略集中在 API 閘道器實施。",
+            "<strong>防止資源與業務流程濫用：</strong> 實施嚴格的速率限制與節流策略。"
+        ],
+        technologies: "API 閘道器, 身份驗證服務 (OAuth/OIDC), 規格強制執行"
+    },
+    "2.3": {
+        title: "偵測 - API 端點與業務邏輯",
+        objective: "偵測針對 API 端點與業務邏輯的攻擊企圖，包括授權繞過嘗試、注入攻擊及業務邏輯濫用。",
+        controls: [
+            "<strong>API 行為分析：</strong> 部署 WAAP 或 API 安全方案，利用機器學習建立正常行為基線並偵測異常。",
+            "<strong>授權失敗監控：</strong> 密切監控並告警 401/403 回應碼，可能是 BOLA/BFLA 探測跡象。",
+            "<strong>規格漂移偵測：</strong> 持續將實際流量與 OpenAPI 規格比較，發現不符的請求或影子 API 活動。",
+            "<strong>威脅情報整合：</strong> 整合威脅情報饋送，識別來自已知惡意 IP 或殭屍網路的請求。"
+        ],
+        technologies: "WAAP, API 行為分析, 威脅情報平台"
+    },
+    "2.4": {
+        title: "應變 - API 端點與業務邏輯",
+        objective: "建立自動化與手動流程，以快速應對針對 API 端點的攻擊，阻止惡意活動並限制損害。",
+        controls: [
+            "<strong>與 SOAR 整合實現自動化應變：</strong> 將警報發送到 SOAR 平台，自動執行封鎖 IP 等應變措施。",
+            "<strong>即時憑證撤銷：</strong> 建立快速撤銷被盜 API 金鑰或 JWT 的能力。",
+            "<strong>動態調整速率限制：</strong> 在偵測到 DoS 攻擊時，動態收緊速率限制策略。",
+            "<strong>事件溝通：</strong> 建立清晰的溝通渠道，及時通知受影響的內外部團隊。"
+        ],
+        technologies: "SOAR, API 閘道器即時阻斷"
+    },
+    "2.5": {
+        title: "復原 - API 端點與業務邏輯",
+        objective: "在 API 相關安全事件後，安全地恢復 API 服務，修復被利用的漏洞，並確保業務連續性。",
+        controls: [
+            "<strong>漏洞修補與重新部署：</strong> 修復根本漏洞後，透過安全的 CI/CD 管線重新部署服務。",
+            "<strong>資料庫回滾與驗證：</strong> 如果資料被篡改，執行資料庫還原程序並驗證資料完整性。",
+            "<strong>強制憑證輪換：</strong> 作為預防措施，強制輪換所有可能受影響的 API 金鑰與用戶密碼。",
+            "<strong>事後審查與流程改進：</strong> 召開事後審查會議，更新安全開發指南與應變劇本。"
+        ],
+        technologies: "CI/CD 管線, 資料庫還原工具"
+    },
+    "3.1": {
+        title: "識別 - API 網路與流量",
+        objective: "完整地映射 API 的網路拓撲、通訊路徑及服務依賴關係，以理解資料如何在系統內部及與外部之間流動。",
+        controls: [
+            "<strong>網路拓撲與資料流映射：</strong> 利用網路監控或服務網格可視化工具，繪製微服務間的通訊地圖。",
+            "<strong>服務依賴關係盤點：</strong> 明確記錄每個 API 依賴的其他內外部服務。",
+            "<strong>通訊協定與加密狀態審核：</strong> 盤點所有 API 通訊使用的協定，識別不安全的 HTTP 或弱加密。"
+        ],
+        technologies: "網路拓撲映射工具, 服務網格可視化"
+    },
+    "3.2": {
+        title: "防護 - API 網路與流量",
+        objective: "透過加密與網路層級的存取控制，確保 API 流量在傳輸過程中不被竊聽、篡改或攔截。",
+        controls: [
+            "<strong>強制使用 TLS：</strong> 對所有 API 端點強制啟用 TLS 1.2+，停用弱加密演算法。",
+            "<strong>實施雙向 TLS (mTLS)：</strong> 對於服務對服務的內部通訊，實施 mTLS 提供強大的雙向身份驗證。",
+            "<strong>網路層級存取控制：</strong> 利用防火牆、NSG 或服務網格策略，嚴格限制對 API 的網路存取。",
+            "<strong>零信任網路分段：</strong> 採用零信任原則進行微分段，預設拒絕所有未經授權的服務間通訊。"
+        ],
+        technologies: "API 閘道器, TLS/mTLS 實施, 零信任網路分段"
+    },
+    "3.3": {
+        title: "偵測 - API 網路與流量",
+        objective: "監控 API 網路流量，以偵測惡意掃描、橫向移動、DDoS 攻擊及其他網路層級的異常行為。",
+        controls: [
+            "<strong>網路入侵偵測/防禦系統 (IDS/IPS)：</strong> 部署 IDS/IPS 對 API 流量進行深度封包檢測 (DPI)。",
+            "<strong>DDoS 攻擊偵測：</strong> 使用 DDoS 防護服務監控異常流量高峰。",
+            "<strong>服務網格遙測數據分析：</strong> 利用服務網格的遙測數據 (延遲、成功率) 偵測橫向移動等異常。",
+            "<strong>網路流量分析 (NTA)：</strong> 使用 NTA 工具建立網路行為基線，並偵測偏離基線的活動。"
+        ],
+        technologies: "IDS/IPS (Snort), DDoS 偵測, NTA, 服務網格遙測"
+    },
+    "3.4": {
+        title: "應變 - API 網路與流量",
+        objective: "在偵測到網路層級的攻擊時，能夠自動或手動地阻斷惡意流量，保護 API 服務的可用性。",
+        controls: [
+            "<strong>自動化阻斷：</strong> 將 IDS/IPS 與防火牆或 API 閘道器聯動，自動封鎖攻擊來源 IP。",
+            "<strong>DDoS 緩解啟動：</strong> 自動將流量切換至 DDoS 清洗中心或雲端緩解服務。",
+            "<strong>動態網路策略更新：</strong> 在服務網格中，動態更新網路策略以隔離受入侵的服務。"
+        ],
+        technologies: "DDoS 緩解服務, 防火牆/閘道器自動化規則更新"
+    },
+    "3.5": {
+        title: "復原 - API 網路與流量",
+        objective: "在網路層級的攻擊（特別是 DDoS）結束後，恢復正常的網路通訊，並分析攻擊模式以改進防禦策略。",
+        controls: [
+            "<strong>流量恢復與監控：</strong> 在攻擊停止後，逐步取消阻斷規則並密切監控服務健康狀況。",
+            "<strong>攻擊特徵分析：</strong> 分析 DDoS 攻擊的流量特徵，並將其加入威脅情報庫。",
+            "<strong>防禦策略調優：</strong> 根據分析結果，調整速率限制閾值、更新 WAF 規則等。"
+        ],
+        technologies: "流量分析工具"
+    },
+    "4.1": {
+        title: "識別 - API 資料與酬載",
+        objective: "識別並分類 API 所處理的所有資料，特別是敏感資料（PII, PHI, PCI）和密鑰，並映射其在系統中的流動路徑。",
+        controls: [
+            "<strong>資料分類與盤點：</strong> 建立資料分類策略，並使用自動化工具掃描資料庫與 API 酬載以識別敏感資料。",
+            "<strong>敏感資料流映射：</strong> 繪製敏感資料在 API 請求與回應中的流動路徑。",
+            "<strong>密鑰與憑證盤點：</strong> 維護所有 API 密鑰、資料庫密碼、憑證的完整清單。"
+        ],
+        technologies: "資料發現與分類工具, 敏感資料流映射"
+    },
+    "4.2": {
+        title: "防護 - API 資料與酬載",
+        objective: "透過加密、遮罩及權杖化等技術，確保敏感資料在靜態儲存與動態傳輸中都得到保護，防止資料外洩。",
+        controls: [
+            "<strong>傳輸中/靜態加密：</strong> 強制使用 TLS，並對儲存敏感資料的資料庫啟用靜態加密。",
+            "<strong>酬載欄位級加密：</strong> 對極度敏感的資料在應用層進行欄位級加密。",
+            "<strong>資料遮罩 (Data Masking)：</strong> 對非生產環境使用靜態資料遮罩，對生產唯讀場景使用動態資料遮罩。",
+            "<strong>權杖化 (Tokenization)：</strong> 將敏感資料 (如 PCI) 替換為無意義的權杖進行處理。",
+            "<strong>防止過度資料暴露：</strong> API 回應僅包含客戶端確實需要的欄位，在後端過濾資料。"
+        ],
+        technologies: "欄位級加密, 資料遮罩 (靜態/動態), 權杖化 (Tokenization)"
+    },
+    "4.3": {
+        title: "偵測 - API 資料與酬載",
+        objective: "即時偵測透過 API 酬載進行的敏感資料外洩企圖或實際外洩事件。",
+        controls: [
+            "<strong>資料外洩防護 (DLP) 監控：</strong> 部署能檢查 API 流量的 DLP 方案，偵測回應中未經授權的敏感資料。",
+            "<strong>行為分析偵測資料竊取：</strong> 利用行為分析工具監控資料存取模式的異常 (如短時間存取大量用戶資料)。",
+            "<strong>日誌分析：</strong> 分析 API 存取日誌，尋找來自異常地理位置或在非工作時間的大量查詢。"
+        ],
+        technologies: "DLP 解決方案, API 行為分析 (針對資料存取)"
+    },
+    "4.4": {
+        title: "應變 - API 資料與酬載",
+        objective: "在偵測到資料外洩事件時，能夠迅速阻斷外洩通道，並啟動事件應變程序。",
+        controls: [
+            "<strong>即時阻斷：</strong> 配置 DLP 或 WAAP 工具自動阻止包含未授權敏感資料的 API 回應。",
+            "<strong>撤銷存取權限：</strong> 立即撤銷與可疑活動相關的用戶帳戶或 API 金鑰。",
+            "<strong>啟動事件應變計畫：</strong> 通知法務、合規及公關團隊，開始進行損害評估。"
+        ],
+        technologies: "DLP/WAAP 即時阻斷, 存取權撤銷"
+    },
+    "4.5": {
+        title: "復原 - API 資料與酬載",
+        objective: "在資料外洩事件後，評估資料洩漏的範圍，通知受影響方，並採取措施防止未來發生類似事件。",
+        controls: [
+            "<strong>損害範圍評估：</strong> 透過日誌分析與鑑識，確定洩漏的資料範圍與受影響用戶。",
+            "<strong>合規性通報：</strong> 根據 GDPR、CCPA 等法規要求，向監管機構及個人進行通報。",
+            "<strong>強化資料保護控制：</strong> 根據根本原因，強化資料保護措施，如擴大加密範圍或部署更先進的 DLP。"
+        ],
+        technologies: "資料庫備份/還原, 合規性通報流程"
+    },
+    "5.1": {
+        title: "識別 - API 消費者與身份",
+        objective: "建立一個完整的 API 消費者清單，包括所有用戶、應用程式客戶端及服務帳戶，並追蹤其身份憑證與權限。",
+        controls: [
+            "<strong>API 消費者目錄：</strong> 維護集中的 API 消費者目錄，記錄身份、所有者及聯絡資訊。",
+            "<strong>憑證庫存管理：</strong> 對所有 API 金鑰、OAuth 客戶端等憑證進行盤點，記錄發放/過期日與權限範圍。",
+            "<strong>權限審核：</strong> 定期審核分配給每個 API 消費者的權限，確保遵循最小權限原則。"
+        ],
+        technologies: "API 消費者目錄, 憑證庫存管理"
+    },
+    "5.2": {
+        title: "防護 - API 消費者與身份",
+        objective: "確保 API 消費者身份的真實性與憑證的安全性，防止憑證被盜用或濫用。",
+        controls: [
+            "<strong>強身份驗證標準：</strong> 遵循 NIST SP 800-63 指南，對高風險操作強制使用 MFA。",
+            "<strong>安全憑證管理：</strong> 定期輪換 API 金鑰，切勿硬編碼。使用非對稱加密簽署 JWT，設定較短的過期時間，並實施刷新權杖輪換。",
+            "<strong>無狀態權杖化：</strong> 採用 JWT 等無狀態權杖化機制，將身份與權限聲明包含在權杖內。"
+        ],
+        technologies: "IAM, MFA, OAuth/OIDC 伺服器, 安全憑證儲存 (Vault)"
+    },
+    "5.3": {
+        title: "偵測 - API 消費者與身份",
+        objective: "偵測與 API 消費者身份相關的惡意活動，如憑證填充、權杖濫用及帳戶接管 (ATO) 企圖。",
+        controls: [
+            "<strong>憑證填充與暴力破解偵測：</strong> 監控登入端點的失敗率，識別暴力破解或憑證填充攻擊。",
+            "<strong>異常 JWT 使用模式偵測：</strong> 分析 JWT 使用模式，偵測「不可能的旅行」或權杖被用於存取異常端點等情況。",
+            "<strong>使用者與實體行為分析 (UEBA)：</strong> 為每個消費者建立行為基線，偵測偏離正常模式的活動。"
+        ],
+        technologies: "UEBA, 憑證填充偵測, 異常登入偵測"
+    },
+    "5.4": {
+        title: "應變 - API 消費者與身份",
+        objective: "在偵測到帳戶被盜用或憑證洩漏時，能夠迅速採取行動，使被盜憑證失效並保護用戶帳戶。",
+        controls: [
+            "<strong>憑證即時撤銷：</strong> 建立並演練即時撤銷受損 API 金鑰或 JWT 的流程 (如黑名單)。",
+            "<strong>帳戶鎖定與會話終止：</strong> 自動暫時鎖定多次登入失敗的帳戶，並強制終止被盜用帳戶的所有會話。",
+            "<strong>強制用戶重設密碼：</strong> 通知受影響用戶，並強制其透過安全流程重設密碼。"
+        ],
+        technologies: "權杖撤銷列表, 帳戶鎖定機制, SOAR"
+    },
+    "5.5": {
+        title: "復原 - API 消費者與身份",
+        objective: "在帳戶接管事件後，幫助用戶安全地恢復其帳戶控制權，並審查身份管理流程以防止未來事件。",
+        controls: [
+            "<strong>安全的帳戶恢復流程：</strong> 提供多因素的、安全的流程供用戶恢復帳戶。",
+            "<strong>審核身份管理策略：</strong> 審查事件中暴露的流程弱點，如是否需加強密碼策略或擴大 MFA 範圍。",
+            "<strong>使用者安全意識教育：</strong> 針對事件中觀察到的用戶行為 (如密碼重用) 進行安全意識教育。"
+        ],
+        technologies: "安全帳戶恢復流程, 身份管理策略審查"
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const matrixContainer = document.getElementById('cdm-matrix');
+    const detailsContent = document.getElementById('details-content');
+    const detailsPanel = document.getElementById('details-panel');
+
+    const assetCategories = [
+        { key: "1", name: "API 主機基礎設施" },
+        { key: "2", name: "API 端點與業務邏輯" },
+        { key: "3", name: "API 網路與流量" },
+        { key: "4", name: "API 資料與酬載" },
+        { key: "5", name: "API 消費者與身份" }
+    ];
+    const functions = ["1", "2", "3", "4", "5"];
+
+    // --- Generate Matrix ---
+    assetCategories.forEach(asset => {
+        // Asset Category Label
+        const assetLabel = document.createElement('div');
+        assetLabel.className = 'flex items-center justify-center p-2 font-bold text-gray-700 text-sm md:text-base';
+        assetLabel.innerHTML = asset.name.replace(' ', '<br>');
+        matrixContainer.appendChild(assetLabel);
+
+        // Function Cells for the Asset
+        functions.forEach(func => {
+            const cellId = `${asset.key}.${func}`;
+            const cellData = cdmData[cellId];
+            const cell = document.createElement('div');
+            cell.className = 'matrix-cell bg-white border border-gray-200 rounded-lg p-3 md:p-4 flex flex-col justify-between aspect-square';
+            cell.dataset.cellId = cellId;
+            
+            cell.innerHTML = `
+                <div>
+                    <h3 class="font-bold text-indigo-700 text-xs md:text-sm">${cellData.title.split(' - ')[1]}</h3>
+                    <p class="text-gray-500 text-xs mt-2 hidden md:block">${cellData.technologies}</p>
+                </div>
+            `;
+            matrixContainer.appendChild(cell);
+        });
+    });
+
+    // --- Event Listener for Clicks ---
+    matrixContainer.addEventListener('click', function(e) {
+        const clickedCell = e.target.closest('.matrix-cell');
+        if (!clickedCell) return;
+
+        const cellId = clickedCell.dataset.cellId;
+        const data = cdmData[cellId];
+
+        // Update active state
+        const allCells = matrixContainer.querySelectorAll('.matrix-cell');
+        allCells.forEach(cell => cell.classList.remove('active'));
+        clickedCell.classList.add('active');
+
+        // Update details panel
+        detailsPanel.style.opacity = '0';
+        setTimeout(() => {
+            detailsContent.innerHTML = `
+                <h2 class="text-2xl font-bold text-indigo-700 mb-4">${data.title}</h2>
+                
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 border-b-2 border-indigo-200 pb-2 mb-3">安全目標</h3>
+                    <p class="text-gray-600">${data.objective}</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 border-b-2 border-indigo-200 pb-2 mb-3">關鍵控制措施與行動</h3>
+                    <ul class="list-none space-y-3">
+                        ${data.controls.map(control => `<li class="flex items-start"><span class="text-indigo-500 mr-3 mt-1">&#10003;</span><span class="text-gray-600">${control}</span></li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">相關技術與工具</h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${data.technologies.split(',').map(tech => `<span class="bg-gray-100 text-gray-700 text-sm font-medium px-3 py-1 rounded-full">${tech.trim()}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            detailsPanel.style.opacity = '1';
+        }, 150); // Corresponds to transition duration
+    });
+});
+</script>
+
+    <div class="page-navigation">
+        <a href="nist_csf_matrix.html" class="btn btn-secondary">
+            &larr; 上一步：NIST 框架
+        </a>
+        <a href="risk_solution_matrix.html" class="btn btn-primary">
+            下一步：總結方案 &rarr;
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Cloudforce 紘瑒科技 - API 安全研究專案</p>
+    </footer>
+
+    <script>
+        const searchPages = [
+            { url: 'index.html', title: '首頁', keywords: 'home, main, index' },
+            { url: 'executive_summary.html', title: '高階主管摘要', keywords: 'summary, executive, report' },
+            { url: 'glossary.html', title: '專有名詞詞彙表', keywords: 'glossary, terms, definitions' },
+            { url: 'api_trends.html', title: '基礎入門', keywords: 'learning, introduction, basic' },
+            { url: 'owasp_api_matrix.html', title: '常見風險 (OWASP)', keywords: 'owasp, risk, matrix, top 10' },
+            { url: 'manufacturing_api_risk_matrix.html', title: '製造業風險', keywords: 'manufacturing, industry, risk' },
+            { url: 'api_security_recommendations.html', title: '防禦與建議', keywords: 'recommendations, defense, solution' },
+            { url: 'nist_csf_matrix.html', title: 'NIST 框架', keywords: 'nist, csf, framework' },
+            { url: 'interactive_matrix.html', title: '互動式矩陣', keywords: 'interactive, matrix, defense' },
+            { url: 'risk_solution_matrix.html', title: '總結方案', keywords: 'solution, summary, matrix' }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('keyup', () => {
+            const query = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredPages = searchPages.filter(page => 
+                    page.title.toLowerCase().includes(query) || 
+                    page.keywords.toLowerCase().includes(query)
+                );
+
+                if (filteredPages.length > 0) {
+                    filteredPages.forEach(page => {
+                        const link = document.createElement('a');
+                        link.href = page.url;
+                        link.textContent = page.title;
+                        searchResults.appendChild(link);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

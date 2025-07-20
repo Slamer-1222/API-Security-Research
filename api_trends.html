@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基礎入門 | Cloudforce 紘瑒科技 - API 安全研究專案</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    
+    <!-- External Libraries (Keep these as they are for functionality) -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="assets/images/cloudcorce-01.png" alt="Cloudforce Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">首頁</a>
+            <a href="executive_summary.html">高階主管摘要</a>
+            <div class="dropdown">
+                <button class="dropbtn">掌握API安全 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_trends.html" class="active">API安全趨勢</a>
+                    <a href="owasp_api_matrix.html">常見風險</a>
+                    <a href="manufacturing_api_risk_matrix.html">製造業風險</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">API 安全對策 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_security_recommendations.html">API 安全建議</a>
+                    <a href="nist_csf_matrix.html">NIST 框架</a>
+                    <a href="interactive_matrix.html">互動式矩陣</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">方案總結 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="risk_solution_matrix.html">總結方案</a>
+                    <a href="glossary.html">專有名詞詞彙表</a>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜尋...">
+            <div id="search-results"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>API 安全趨勢研究</h1>
+            <p>深度解析現代企業 API 安全態勢、威脅演變與防護策略</p>
+        </header>
+        
+        <!-- 態勢概覽儀表板 -->
+        <div class="dashboard-overview">
+            <div class="overview-stats">
+                <div class="stat-card critical">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <div class="stat-number">10倍</div>
+                        <div class="stat-label">API 漏洞風險倍數</div>
+                    </div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-content">
+                        <div class="stat-number">21%</div>
+                        <div class="stat-label">2024年Q3威脅增長</div>
+                    </div>
+                </div>
+                <div class="stat-card info">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-number">540萬</div>
+                        <div class="stat-label">用戶資料遭竊規模</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <!-- API 威脅態勢分析 -->
+            <div class="threat-landscape-section">
+                <div class="section-header">
+                    <h2>🌐 API 威脅態勢分析</h2>
+                    <p>隨著數位轉型加速，API 已成為現代企業的核心基礎設施，但同時也成為駭客的首要攻擊目標</p>
+                </div>
+                
+                <!-- 關鍵洞察突出區塊 -->
+                <div class="key-insights-highlight">
+                    <div class="insights-header">
+                        <h3>💡 關鍵威脅洞察</h3>
+                        <p>基於最新威脅情報分析的重要發現</p>
+                    </div>
+                    <div class="insights-grid">
+                        <div class="insight-item critical">
+                            <div class="insight-icon">📈</div>
+                            <div class="insight-content">
+                                <h4>攻擊複雜度攀升</h4>
+                                <p>API 攻擊手法日趨精密，傳統簽名式防護已難以應對</p>
+                            </div>
+                        </div>
+                        <div class="insight-item warning">
+                            <div class="insight-icon">💥</div>
+                            <div class="insight-content">
+                                <h4>資料外洩激增 320%</h4>
+                                <p>API 相關資料外洩事件較去年同期大幅增長</p>
+                            </div>
+                        </div>
+                        <div class="insight-item urgent">
+                            <div class="insight-icon">🚨</div>
+                            <div class="insight-content">
+                                <h4>防護能力落差擴大</h4>
+                                <p>傳統邊界防護已無法應對 API 層面的新型威脅</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 雙圖表並列區塊 -->
+                <div class="charts-parallel">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h4>📊 API 安全威脅增長趨勢</h4>
+                            <p>近五年 API 威脅演變情況</p>
+                        </div>
+                        <div class="chart-wrapper">
+                            <div style="width: 100%; height: 350px;" id="apiGrowthChart"></div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h4>🎯 API 攻擊影響分布</h4>
+                            <p>不同攻擊類型造成的影響程度</p>
+                        </div>
+                        <div class="chart-wrapper">
+                            <div style="width: 100%; height: 350px;" id="threatImpactChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API 技術發展趨勢 -->
+            <div class="technology-trends-section">
+                <div class="section-header">
+                    <h2>⚡ API 技術發展趨勢</h2>
+                    <p>從 REST 到 GraphQL，API 技術持續演進以滿足現代應用需求</p>
+                </div>
+                
+                <div class="trends-grid">
+                    <div class="trend-card primary">
+                        <div class="trend-header">
+                            <div class="trend-icon">🔄</div>
+                            <h3>RESTful API</h3>
+                        </div>
+                        <p>Web API 主流標準，輕量化設計取代 SOAP，提供簡潔易用的開發體驗</p>
+                        <div class="trend-stats">
+                            <span class="stat-badge">75% 市場占有率</span>
+                        </div>
+                    </div>
+                    
+                    <div class="trend-card secondary">
+                        <div class="trend-header">
+                            <div class="trend-icon">📊</div>
+                            <h3>GraphQL</h3>
+                        </div>
+                        <p>Facebook 開發的查詢語言，單一端點精確獲取數據，解決過度獲取問題</p>
+                        <div class="trend-stats">
+                            <span class="stat-badge growth">+45% 年增長</span>
+                        </div>
+                    </div>
+                    
+                    <div class="trend-card accent">
+                        <div class="trend-header">
+                            <div class="trend-icon">⚡</div>
+                            <h3>gRPC</h3>
+                        </div>
+                        <p>Google 開發的高性能通訊協議，微服務架構的理想選擇</p>
+                        <div class="trend-stats">
+                            <span class="stat-badge performance">10x 效能提升</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="usage-patterns-grid">
+                    <div class="pattern-section">
+                        <h3>📋 API 使用模式分類</h3>
+                        <div class="patterns-table">
+                            <div class="pattern-row">
+                                <div class="pattern-type">公共 API</div>
+                                <div class="pattern-desc">開放給所有開發者的免費 API</div>
+                                <div class="pattern-risk">高暴露風險</div>
+                            </div>
+                            <div class="pattern-row">
+                                <div class="pattern-type">私有 API</div>
+                                <div class="pattern-desc">內部開發團隊專用的受保護 API</div>
+                                <div class="pattern-risk">內部威脅</div>
+                            </div>
+                            <div class="pattern-row">
+                                <div class="pattern-type">合作夥伴 API</div>
+                                <div class="pattern-desc">授權業務夥伴使用的第三方 API</div>
+                                <div class="pattern-risk">供應鏈風險</div>
+                            </div>
+                            <div class="pattern-row">
+                                <div class="pattern-type">B2B API</div>
+                                <div class="pattern-desc">企業間商務流程整合的關鍵介面</div>
+                                <div class="pattern-risk">商業邏輯濫用</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="industry-section">
+                        <h3>🏭 重點產業應用</h3>
+                        <div class="industry-grid">
+                            <div class="industry-card">
+                                <div class="industry-icon">🏦</div>
+                                <h4>金融服務</h4>
+                                <p>開放銀行與金融科技創新</p>
+                            </div>
+                            <div class="industry-card">
+                                <div class="industry-icon">🏥</div>
+                                <h4>醫療保健</h4>
+                                <p>病歷互通與遠程醫療</p>
+                            </div>
+                            <div class="industry-card">
+                                <div class="industry-icon">🛒</div>
+                                <h4>零售電商</h4>
+                                <p>供應鏈整合與客戶體驗</p>
+                            </div>
+                            <div class="industry-card">
+                                <div class="industry-icon">🌐</div>
+                                <h4>物聯網</h4>
+                                <p>設備連接與數據交換</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OWASP API Top 10 威脅分析 -->
+            <div class="owasp-threats-section">
+                <div class="section-header">
+                    <h2>🎯 OWASP API Security Top 10 威脅分析</h2>
+                    <p>深度解析十大 API 安全威脅及其防護重點</p>
+                </div>
+                
+                <div class="threats-categories">
+                    <div class="threat-category high-risk">
+                        <div class="category-header">
+                            <h3>🔴 高風險威脅</h3>
+                            <span class="risk-badge critical">立即關注</span>
+                        </div>
+                        <div class="threats-grid">
+                            <div class="threat-item">
+                                <div class="threat-id">API1</div>
+                                <div class="threat-content">
+                                    <h4>權限不當的物件級授權</h4>
+                                    <p>未驗證用戶對特定數據的存取權限</p>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-id">API2</div>
+                                <div class="threat-content">
+                                    <h4>失效的身份驗證</h4>
+                                    <p>驗證機制實施不當，允許令牌竊取</p>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-id">API4</div>
+                                <div class="threat-content">
+                                    <h4>無限制的資源消耗</h4>
+                                    <p>未對請求頻率設限，導致 DoS 攻擊</p>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-id">API8</div>
+                                <div class="threat-content">
+                                    <h4>安全性設定錯誤</h4>
+                                    <p>人為疏忽或未遵循最佳實踐</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="threat-category medium-risk">
+                        <div class="category-header">
+                            <h3>🟡 中度風險威脅</h3>
+                            <span class="risk-badge warning">重點監控</span>
+                        </div>
+                        <div class="threats-grid">
+                            <div class="threat-item">
+                                <div class="threat-id">API3</div>
+                                <div class="threat-content">
+                                    <h4>物件屬性級授權失效</h4>
+                                    <p>允許存取不應接觸的特定欄位</p>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-id">API5</div>
+                                <div class="threat-content">
+                                    <h4>功能級授權失效</h4>
+                                    <p>存取控制策略複雜，可繞過檢查</p>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-id">API6</div>
+                                <div class="threat-content">
+                                    <h4>無限制存取敏感業務流程</h4>
+                                    <p>業務流程自動化濫用風險</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="threat-category low-risk">
+                        <div class="category-header">
+                            <h3>🟢 特殊威脅類型</h3>
+                            <span class="risk-badge info">長期關注</span>
+                        </div>
+                        <div class="threats-grid">
+                            <div class="threat-item">
+                                <div class="threat-id">API7</div>
+                                <div class="threat-content">
+                                    <h4>伺服器端請求偽造</h4>
+                                    <p>未驗證 URI，強迫應用程式發送請求</p>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-id">API9</div>
+                                <div class="threat-content">
+                                    <h4>不當的資產管理</h4>
+                                    <p>產生「殭屍 API」安全風險</p>
+                                </div>
+                            </div>
+                            <div class="threat-item">
+                                <div class="threat-id">API10</div>
+                                <div class="threat-content">
+                                    <h4>不安全地使用 API</h4>
+                                    <p>過度信任第三方 API 服務</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 現代 API 防護策略 -->
+            <div class="defense-strategy-section">
+                <div class="section-header">
+                    <h2>🛡️ 現代 API 防護策略</h2>
+                    <p>從傳統邊界防護升級到多層次、智能化的 API 安全架構</p>
+                </div>
+                
+                <div class="limitations-vs-solutions">
+                    <div class="limitations-panel">
+                        <h3>❌ 傳統防護局限性</h3>
+                        <div class="limitation-items">
+                            <div class="limitation-item">
+                                <div class="limitation-icon">🚪</div>
+                                <div class="limitation-content">
+                                    <h4>WAF 防護盲點</h4>
+                                    <p>無法偵測業務邏輯攻擊和客戶端威脅</p>
+                                </div>
+                            </div>
+                            <div class="limitation-item">
+                                <div class="limitation-icon">🏝️</div>
+                                <div class="limitation-content">
+                                    <h4>孤島式防禦</h4>
+                                    <p>各工具缺乏協同，無法形成完整保護網</p>
+                                </div>
+                            </div>
+                            <div class="limitation-item">
+                                <div class="limitation-icon">👁️</div>
+                                <div class="limitation-content">
+                                    <h4>視角偏差</h4>
+                                    <p>內部評估易產生防禦盲點</p>
+                                </div>
+                            </div>
+                            <div class="limitation-item">
+                                <div class="limitation-icon">💸</div>
+                                <div class="limitation-content">
+                                    <h4>技術債累積</h4>
+                                    <p>缺乏長遠規劃，安全債務不斷增加</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="architecture-panel">
+                        <h3>✅ 多層次防禦架構</h3>
+                        <div class="architecture-diagram">
+                            <div class="mermaid" id="securityArchitecture"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="defense-layers">
+                    <div class="layer-card gateway">
+                        <div class="layer-header">
+                            <div class="layer-icon">🚪</div>
+                            <h3>API 閘道器</h3>
+                            <span class="layer-level">第一層防護</span>
+                        </div>
+                        <p>集中管理 API 流量、路由與基本驗證</p>
+                        <div class="layer-features">
+                            <span class="feature-badge">OAuth 認證</span>
+                            <span class="feature-badge">流量限制</span>
+                            <span class="feature-badge">基本 DoS 防護</span>
+                        </div>
+                    </div>
+                    
+                    <div class="layer-card waf">
+                        <div class="layer-header">
+                            <div class="layer-icon">🔥</div>
+                            <h3>WAF 防火牆</h3>
+                            <span class="layer-level">邊界防護</span>
+                        </div>
+                        <p>阻擋傳統 OWASP Top 10 攻擊類型</p>
+                        <div class="layer-features">
+                            <span class="feature-badge">SQL Injection</span>
+                            <span class="feature-badge">XSS 防護</span>
+                            <span class="feature-badge">DDoS 防護</span>
+                        </div>
+                    </div>
+                    
+                    <div class="layer-card api-security">
+                        <div class="layer-header">
+                            <div class="layer-icon">🧠</div>
+                            <h3>專用 API 防護</h3>
+                            <span class="layer-level">深度防護</span>
+                        </div>
+                        <p>AI 驅動的智能防護，覆蓋完整生命週期</p>
+                        <div class="layer-features">
+                            <span class="feature-badge">API 探索</span>
+                            <span class="feature-badge">行為分析</span>
+                            <span class="feature-badge">業務邏輯防護</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="strategy-recommendations">
+                    <h3>🎯 策略實施建議</h3>
+                    <div class="recommendations-grid">
+                        <div class="recommendation-card">
+                            <div class="rec-priority high">立即實施</div>
+                            <h4>API 資產盤點</h4>
+                            <p>自動化探索與識別所有 API 端點，建立完整資產清單</p>
+                        </div>
+                        <div class="recommendation-card">
+                            <div class="rec-priority high">立即實施</div>
+                            <h4>身份驗證強化</h4>
+                            <p>實施多層次驗證機制，確保最小權限原則</p>
+                        </div>
+                        <div class="recommendation-card">
+                            <div class="rec-priority medium">中期規劃</div>
+                            <h4>AI 驅動監控</h4>
+                            <p>建立行為基線，即時偵測異常活動</p>
+                        </div>
+                        <div class="recommendation-card">
+                            <div class="rec-priority medium">中期規劃</div>
+                            <h4>安全框架整合</h4>
+                            <p>融入 NIST CSF，建立標準化防護流程</p>
+                        </div>
+                        <div class="recommendation-card">
+                            <div class="rec-priority low">長期目標</div>
+                            <h4>零信任架構</h4>
+                            <p>實現全面零信任 API 安全模型</p>
+                        </div>
+                        <div class="recommendation-card">
+                            <div class="rec-priority low">長期目標</div>
+                            <h4>持續改進</h4>
+                            <p>建立安全成熟度評估與持續優化機制</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="page-navigation">
+        <a href="owasp_api_matrix.html" class="btn btn-secondary">
+            &larr; 上一步：認識常見風險
+        </a>
+        <a href="manufacturing_api_risk_matrix.html" class="btn btn-primary">
+            下一步：製造業風險 &rarr;
+        </a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Cloudforce 紘瑒科技 - API 安全研究專案</p>
+    </footer>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'default' // Always default theme, no dark mode
+        });
+
+        // Security Architecture Diagram
+        const securityDiagram = `
+            graph TD
+                A[用戶請求] --> B[API 閘道器]
+                B --> C[WAF 防火牆]
+                C --> D[專用 API 防護]
+                D --> E[後端服務]
+                
+                F[AI 威脅分析] --> D
+                G[行為基線] --> F
+                H[零信任驗證] --> B
+                I[左移安全] --> E
+                
+                style A fill:#e1f5fe
+                style B fill:#f3e5f5
+                style C fill:#fff3e0
+                style D fill:#e8f5e8
+                style E fill:#fce4ec
+                style F fill:#f0f4c3
+                style G fill:#e0f2f1
+                style H fill:#fce4ec
+                style I fill:#e8f5e8
+        `;
+
+        document.getElementById('securityArchitecture').innerHTML = securityDiagram;
+
+        // API Growth Chart
+        const apiGrowthChart = echarts.init(document.getElementById('apiGrowthChart'));
+        const apiGrowthOption = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['API 漏洞數量', '資料外洩事件', '攻擊複雜度'],
+                textStyle: {
+                    fontSize: 11
+                }
+            },
+            xAxis: {
+                type: 'category',
+                data: ['2020', '2021', '2022', '2023', '2024']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: 'API 漏洞數量',
+                    type: 'line',
+                    data: [120, 180, 250, 320, 420],
+                    smooth: true,
+                    lineStyle: { color: '#ef4444' },
+                    areaStyle: { color: 'rgba(239, 68, 68, 0.1)' }
+                },
+                {
+                    name: '資料外洩事件',
+                    type: 'line',
+                    data: [50, 85, 120, 160, 210],
+                    smooth: true,
+                    lineStyle: { color: '#f97316' },
+                    areaStyle: { color: 'rgba(249, 115, 22, 0.1)' }
+                },
+                {
+                    name: '攻擊複雜度',
+                    type: 'line',
+                    data: [60, 75, 90, 110, 140],
+                    smooth: true,
+                    lineStyle: { color: '#eab308' },
+                    areaStyle: { color: 'rgba(234, 179, 8, 0.1)' }
+                }
+            ]
+        };
+        apiGrowthChart.setOption(apiGrowthOption);
+
+        // Threat Impact Chart
+        const threatChart = echarts.init(document.getElementById('threatImpactChart'));
+        const threatOption = {
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c}% ({d}%)'
+            },
+            legend: {
+                orient: 'horizontal',
+                left: 'center',
+                bottom: '0',
+                textStyle: {
+                    fontSize: 11
+                }
+            },
+            series: [
+                {
+                    name: '影響類型',
+                    type: 'pie',
+                    radius: ['35%', '65%'],
+                    center: ['50%', '45%'],
+                    data: [
+                        { value: 35, name: '資料外洩', itemStyle: { color: '#ef4444' } },
+                        { value: 25, name: '服務中斷', itemStyle: { color: '#f97316' } },
+                        { value: 20, name: '帳戶接管', itemStyle: { color: '#eab308' } },
+                        { value: 12, name: '業務邏輯濫用', itemStyle: { color: '#22c55e' } },
+                        { value: 8, name: '零時差攻擊', itemStyle: { color: '#3b82f6' } }
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    label: {
+                        fontSize: 11
+                    }
+                }
+            ]
+        };
+        threatChart.setOption(threatOption);
+
+        // Responsive chart resize
+        window.addEventListener('resize', function() {
+            apiGrowthChart.resize();
+            threatChart.resize();
+        });
+
+        const searchPages = [
+            { url: 'index.html', title: '首頁', keywords: 'home, main, index' },
+            { url: 'executive_summary.html', title: '高階主管摘要', keywords: 'summary, executive, report' },
+            { url: 'glossary.html', title: '專有名詞詞彙表', keywords: 'glossary, terms, definitions' },
+            { url: 'api_trends.html', title: '基礎入門', keywords: 'learning, introduction, basic' },
+            { url: 'owasp_api_matrix.html', title: '常見風險 (OWASP)', keywords: 'owasp, risk, matrix, top 10' },
+            { url: 'manufacturing_api_risk_matrix.html', title: '製造業風險', keywords: 'manufacturing, industry, risk' },
+            { url: 'api_security_recommendations.html', title: '防禦與建議', keywords: 'recommendations, defense, solution' },
+            { url: 'nist_csf_matrix.html', title: 'NIST 框架', keywords: 'nist, csf, framework' },
+            { url: 'interactive_matrix.html', title: '互動式矩陣', keywords: 'interactive, matrix, defense' },
+            { url: 'risk_solution_matrix.html', title: '總結方案', keywords: 'solution, summary, matrix' }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('keyup', () => {
+            const query = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredPages = searchPages.filter(page => 
+                    page.title.toLowerCase().includes(query) || 
+                    page.keywords.toLowerCase().includes(query)
+                );
+
+                if (filteredPages.length > 0) {
+                    filteredPages.forEach(page => {
+                        const link = document.createElement('a');
+                        link.href = page.url;
+                        link.textContent = page.title;
+                        searchResults.appendChild(link);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+# GitHub Pages 部署 - 排除非核心文件
+
+# 開發文件（包含敏感技術資訊）
+docs/
+GITHUB_PAGES_DEPLOYMENT.md
+PROJECT_*.md
+CSS_OPTIMIZATION_PLAN.md
+DEVELOPMENT_HISTORY.md
+
+# 備份和歸檔文件
+歸檔/
+*backup*
+*.bak
+
+# 開發工具文件
+.vscode/
+.idea/
+*.log
+
+# 臨時文件
+.DS_Store
+Thumbs.db
+
+# 注意：README.md 保留，因為它是 GitHub 標準專案說明

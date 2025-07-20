@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>專有名詞詞彙表 | Cloudforce 紘瑒科技 - API 安全研究專案</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="assets/images/cloudcorce-01.png" alt="Cloudforce Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">首頁</a>
+            <a href="executive_summary.html">高階主管摘要</a>
+            <div class="dropdown">
+                <button class="dropbtn">掌握API安全 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_trends.html">API安全趨勢</a>
+                    <a href="owasp_api_matrix.html">常見風險</a>
+                    <a href="manufacturing_api_risk_matrix.html">製造業風險</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">API 安全對策 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_security_recommendations.html">API 安全建議</a>
+                    <a href="nist_csf_matrix.html">NIST 框架</a>
+                    <a href="interactive_matrix.html">互動式矩陣</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">方案總結 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="risk_solution_matrix.html">總結方案</a>
+                    <a href="glossary.html" class="active">專有名詞詞彙表</a>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜尋...">
+            <div id="search-results"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>專有名詞詞彙表 (Glossary)</h1>
+            <p>本頁面旨在解釋 API 安全領域中常見的專有名詞與縮寫，幫助您更好地理解本專案的內容。</p>
+        </header>
+
+        <main>
+            <div class="glossary-section">
+                <div class="card">
+                    <div class="term-title">API (Application Programming Interface) - 應用程式介面</div>
+                    <div class="term-definition">
+                        <p>一種允許不同軟體應用程式之間互相溝通、交換資料的規則與工具集合。在現代架構中，API 是串連微服務、行動應用和第三方服務的關鍵橋樑。</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="term-title">OWASP (Open Web Application Security Project) - 開放式 Web 應用程式安全專案</div>
+                    <div class="term-definition">
+                        <p>一個全球性的非營利組織，致力於改善軟體安全。其發布的 OWASP Top 10 (包括針對 Web 應用和 API 的版本) 是業界公認的最關鍵安全風險列表。</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="term-title">BOLA (Broken Object Level Authorization) - 權限不當的物件級授權 (OWASP API #1)</div>
+                    <div class="term-definition">
+                        <p>一種安全漏洞，當 API 端點允許使用者存取他們不應有權限存取的特定資料物件時發生。例如，使用者 A 透過修改 API 請求中的 ID，成功存取了使用者 B 的資料。</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="term-title">MFA (Multi-Factor Authentication) - 多因素驗證</div>
+                    <div class="term-definition">
+                        <p>一種安全機制，要求使用者在登入時提供兩種或兩種以上的驗證因素 (例如：密碼 + 手機驗證碼)，以增強帳戶的安全性。</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="term-title">NIST CSF (National Institute of Standards and Technology Cybersecurity Framework) - 美國國家標準與技術研究院網路安全框架</div>
+                    <div class="term-definition">
+                        <p>一個由美國政府機構開發的、旨在幫助組織管理和降低網路安全風險的框架。它提供了一套標準、指南和最佳實踐，分為識別、保護、偵測、應變、復原五大功能。</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="term-title">影子 API (Shadow API)</div>
+                    <div class="term-definition">
+                        <p>指那些未被 IT 或安全團隊正式記錄、管理和監控的 API。它們可能是由開發人員為了測試或臨時需求而建立，但從未被移除，因此成為了無人看管的安全盲點。</p>
+                    </div>
+                </div>
+                 <div class="card">
+                    <div class="term-title">殭屍 API (Zombie API)</div>
+                    <div class="term-definition">
+                        <p>指那些已經過時、被新版本取代，但仍未被停用的舊版 API。因為它們通常不再被積極維護，所以很容易被駭客發現並利用其中的已知漏洞。</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Cloudforce 紘瑒科技 - API 安全研究專案</p>
+    </footer>
+
+    <script>
+        const searchPages = [
+            { url: 'index.html', title: '首頁', keywords: 'home, main, index' },
+            { url: 'executive_summary.html', title: '高階主管摘要', keywords: 'summary, executive, report' },
+            { url: 'glossary.html', title: '專有名詞詞彙表', keywords: 'glossary, terms, definitions' },
+            { url: 'api_trends.html', title: '基礎入門', keywords: 'learning, introduction, basic' },
+            { url: 'owasp_api_matrix.html', title: '常見風險 (OWASP)', keywords: 'owasp, risk, matrix, top 10' },
+            { url: 'manufacturing_api_risk_matrix.html', title: '製造業風險', keywords: 'manufacturing, industry, risk' },
+            { url: 'api_security_recommendations.html', title: '防禦與建議', keywords: 'recommendations, defense, solution' },
+            { url: 'nist_csf_matrix.html', title: 'NIST 框架', keywords: 'nist, csf, framework' },
+            { url: 'interactive_matrix.html', title: '互動式矩陣', keywords: 'interactive, matrix, defense' },
+            { url: 'risk_solution_matrix.html', title: '總結方案', keywords: 'solution, summary, matrix' }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('keyup', () => {
+            const query = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredPages = searchPages.filter(page => 
+                    page.title.toLowerCase().includes(query) || 
+                    page.keywords.toLowerCase().includes(query)
+                );
+
+                if (filteredPages.length > 0) {
+                    filteredPages.forEach(page => {
+                        const link = document.createElement('a');
+                        link.href = page.url;
+                        link.textContent = page.title;
+                        searchResults.appendChild(link);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>

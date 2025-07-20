@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常見風險 | Cloudforce 紘瑒科技 - API 安全研究專案</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="assets/images/cloudcorce-01.png" alt="Cloudforce Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">首頁</a>
+            <a href="executive_summary.html">高階主管摘要</a>
+            <div class="dropdown">
+                <button class="dropbtn">掌握API安全 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_trends.html">API安全趨勢</a>
+                    <a href="owasp_api_matrix.html" class="active">常見風險</a>
+                    <a href="manufacturing_api_risk_matrix.html">製造業風險</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">API 安全對策 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_security_recommendations.html">API 安全建議</a>
+                    <a href="nist_csf_matrix.html">NIST 框架</a>
+                    <a href="interactive_matrix.html">互動式矩陣</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">方案總結 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="risk_solution_matrix.html">總結方案</a>
+                    <a href="glossary.html">專有名詞詞彙表</a>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜尋...">
+            <div id="search-results"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>OWASP API Security Top 10 - 互動式風險矩陣</h1>
+            <p>探索業界公認最危險的 API 安全漏洞，了解攻擊手法與防禦策略。</p>
+        </header>
+
+        <div class="owasp-intro">
+            <div class="intro-card">
+                <h2>關於 OWASP API Security Top 10</h2>
+                <p>OWASP（開放式 Web 應用程式安全專案）發布的 API 安全風險排行榜，匯整了全球最常見且最具威脅性的10大 API 安全漏洞。這個清單是基於業界專家的深入分析和實際攻擊案例制定的。</p>
+                <div class="usage-guide">
+                    <strong>使用指引：</strong>點擊下方的風險項目，查看詳細的說明、攻擊情境與防禦建議。每個項目都包含真實的攻擊案例和具體的防禦措施。
+                </div>
+            </div>
+        </div>
+
+        <div class="interactive-matrix-container">
+            <div class="risk-list" id="risk-list">
+                <!-- Risk items will be dynamically generated here -->
+            </div>
+            <div class="risk-details-container" id="risk-details">
+                <div class="default-message">
+                    <h3>選擇一個風險項目</h3>
+                    <p>請點擊左側的風險項目以查看詳細資訊</p>
+                </div>
+                <!-- Risk details will be dynamically shown here -->
+            </div>
+        </div>
+        
+        <div class="next-step-nav">
+            <h3>了解了 OWASP 風險後，下一步該做什麼？</h3>
+            <p>深入了解這些風險如何影響高科技製造業的特定環境</p>
+            <a href="manufacturing_api_risk_matrix.html" class="btn">查看製造業風險矩陣</a>
+        </div>
+    </div>
+
+    <div class="page-navigation">
+        <a href="api_trends.html" class="btn btn-secondary">
+            &larr; 上一步：基礎入門
+        </a>
+        <a href="manufacturing_api_risk_matrix.html" class="btn btn-primary">
+            下一步：製造業風險 &rarr;
+        </a>
+    </div>
+
+    <script>
+        const owaspRisks = {
+            "api1": {
+                title: "API1: 權限不當的物件級授權",
+                description: "當 API 未能在每個請求中正確驗證使用者是否有權限存取目標物件時，就會發生此漏洞。攻擊者可以輕易地透過修改請求中的物件 ID，來存取其他使用者的資料。",
+                attack_scenario: "一個線上商城的訂單查詢 API `GET /api/orders/{orderId}`。使用者 A (ID: 101) 正常查詢自己的訂單 `.../orders/99`。但攻擊者將 `orderId` 改為 `100`，如果系統沒有驗證該訂單是否屬於使用者 A，就會將不屬於他的訂單資料回傳。",
+                defense: [
+                    "在每個需要存取資料的業務邏輯中，都基於使用者 Session 或 Token 來驗證其對目標物件的存取權限.",
+                    "避免在 API 中使用可被輕易猜測的連續數字 ID，改用 UUID.",
+                    "撰寫單元測試與整合測試，確保授權邏輯的正確性."
+                ]
+            },
+            "api2": {
+                title: "API2: 失效的身份驗證",
+                description: "當身份驗證機制可以被輕易繞過或破解時，攻擊者就能冒充合法使用者。這包括未受保護的 API、弱密碼、未驗證的 JWT 權杖等。",
+                attack_scenario: "一個 API 使用 JWT 權杖進行驗證，但後端僅解碼權杖，卻未驗證其簽章的合法性。攻擊者可以自行偽造一個 JWT 權杖，並在其中聲明自己是管理員，從而獲得系統的高權限。",
+                defense: [
+                    "確保所有需要驗證的 API 端點都受到身份驗證機制的保護.",
+                    "實施強密碼策略與多因素驗證 (MFA).",
+                    "嚴格驗證所有收到的 JWT 權杖的簽章、過期時間與頒發者."
+                ]
+            },
+            "api3": {
+                title: "API3: 權限不當的物件屬性級授權",
+                description: "此漏洞允許攻擊者存取或修改他們不應接觸的特定資料欄位(物件屬性)。即使他們有權限存取整個物件，也不代表他們有權限讀寫所有欄位。",
+                attack_scenario: "一個使用者資料更新 API `PUT /api/users/me`。正常使用者只能更新自己的暱稱和地址。但攻擊者在請求中加入了一個 `\"isAdmin\": true` 的欄位。如果後端直接將收到的所有資料更新到資料庫，攻擊者就能將自己提升為管理員。",
+                defense: [
+                    "永遠不要將客戶端傳來的資料直接用於內部物件的更新.",
+                    "根據使用者的權限，明確定義哪些欄位是允許讀取或寫入的.",
+                    "從 API 回應中過濾掉不應顯示給該使用者的敏感欄位."
+                ]
+            },
+            "api4": {
+                title: "API4: 無限制的資源消耗",
+                description: "如果 API 沒有對請求的頻率或大小施加限制，攻擊者就可以透過大量請求來消耗伺服器資源 (CPU, 記憶體, 頻寬)，導致服務變慢或完全中斷 (DoS)。",
+                attack_scenario: "一個檔案上傳 API 沒有限制檔案大小。攻擊者可以上傳一個極大的檔案 (如 10GB)，佔滿伺服器的磁碟空間或記憶體，導致其他使用者無法正常使用服務。",
+                defense: [
+                    "對 API 請求實施速率限制 (Rate Limiting) 與節流 (Throttling).",
+                    "為 API 請求與回應的資料大小設定合理的上限.",
+                    "對容器等執行環境設定 CPU 和記憶體的使用上限."
+                ]
+            },
+            "api5": {
+                title: "API5: 功能級授權失效",
+                description: "當系統未能根據使用者的角色或群組，正確限制其對特定業務功能的存取時，就會發生此漏洞。攻擊者可以藉此存取他們不應使用的管理功能。",
+                attack_scenario: "一個網站的管理後台 API `POST /api/admin/deleteUser` 應該只有管理員能呼叫。但開發者僅在前端介面隱藏了刪除按鈕，卻未在後端 API 加上權限檢查。普通使用者可以透過直接呼叫此 API 來刪除其他使用者。",
+                defense: [
+                    "預設拒絕所有存取，明確定義每個角色可以存取哪些功能.",
+                    "在每個業務功能的開頭，都進行功能級的權限檢查.",
+                    "不要僅依賴前端隱藏功能來實現安全."
+                ]
+            },
+            "api6": {
+                title: "API6: 無限制的存取未受限制資源",
+                description: "當 API 沒有對使用者可存取的資源進行適當限制時，攻擊者可能能夠存取超出其權限範圍的資源，導致資料外洩或系統過載。",
+                attack_scenario: "一個檔案下載 API `GET /api/files/{filename}` 沒有驗證檔案路徑。攻擊者可以使用 `../../../etc/passwd` 這樣的路徑遍歷攻擊來讀取系統敏感檔案。",
+                defense: [
+                    "實施嚴格的路徑驗證，防止目錄遍歷攻擊.",
+                    "使用白名單機制限制可存取的資源範圍.",
+                    "對檔案存取實施適當的權限檢查."
+                ]
+            },
+            "api7": {
+                title: "API7: 伺服器端請求偽造 (SSRF)",
+                description: "當 API 根據使用者輸入向其他伺服器發送請求，但沒有適當驗證目標 URL 時，攻擊者可以利用此漏洞存取內部網路資源。",
+                attack_scenario: "一個網頁截圖 API `POST /api/screenshot` 接受 URL 參數來截取網頁。攻擊者提供內部網路地址如 `http://192.168.1.100/admin`，讓伺服器存取原本無法從外部存取的內部管理介面。",
+                defense: [
+                    "對所有外部請求的 URL 進行嚴格驗證和過濾.",
+                    "使用 URL 白名單，僅允許存取預期的外部服務.",
+                    "在網路層面限制伺服器對內部資源的存取權限."
+                ]
+            },
+            "api8": {
+                title: "API8: 安全配置錯誤",
+                description: "不當的安全配置會暴露 API 於各種攻擊風險中，包括未加密的通訊、預設帳密、錯誤的 CORS 設定等。",
+                attack_scenario: "一個 API 伺服器開啟了詳細的錯誤訊息，當發生 SQL 錯誤時，會將完整的資料庫結構和錯誤訊息回傳給攻擊者，協助他們了解系統架構並進行進一步攻擊。",
+                defense: [
+                    "定期進行安全配置檢查和漏洞掃描.",
+                    "關閉不必要的服務和功能，遵循最小權限原則.",
+                    "確保所有通訊都使用 HTTPS 加密."
+                ]
+            },
+            "api9": {
+                title: "API9: 不當的資產管理",
+                description: "缺乏對 API 資產的完整盤點與管理，會導致「影子 API」(未記錄的 API) 和「殭屍 API」(已過時的 API) 的出現，這些都是無人看管的安全死角。",
+                attack_scenario: "開發團隊上線了 `v2` 版本的 API，但忘記將存在已知漏洞的 `v1` 版本下線。攻擊者掃描到這個未受保護的舊版 API，並利用其漏洞成功入侵系統。",
+                defense: [
+                    "使用自動化工具持續探索並建立完整的 API 資產清單.",
+                    "為所有 API 提供準確且即時更新的文件.",
+                    "建立明確的 API 版本管理與棄用策略."
+                ]
+            },
+            "api10": {
+                title: "API10: 不安全的 API 消耗",
+                description: "當應用程式整合第三方 API 時，如果沒有適當驗證這些 API 的安全性，就可能引入額外的風險，包括資料洩露和服務中斷。",
+                attack_scenario: "一個電商網站整合了第三方支付 API，但沒有驗證 API 回傳的交易狀態。攻擊者可能透過中間人攻擊修改回傳結果，讓系統誤認為付款已完成，進而獲得免費商品。",
+                defense: [
+                    "對所有第三方 API 進行安全評估和定期檢查.",
+                    "使用 HTTPS 和憑證固定來保護 API 通訊.",
+                    "實施適當的錯誤處理和驗證機制."
+                ]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const riskListContainer = document.getElementById('risk-list');
+            const riskDetailsContainer = document.getElementById('risk-details');
+
+            // Populate risk list
+            Object.keys(owaspRisks).forEach(key => {
+                const risk = owaspRisks[key];
+                const item = document.createElement('div');
+                item.className = 'risk-item';
+                item.dataset.riskKey = key;
+                item.textContent = risk.title;
+                riskListContainer.appendChild(item);
+
+                const detail = document.createElement('div');
+                detail.className = 'risk-detail-content';
+                detail.id = key;
+                detail.innerHTML = `
+                    <h2>${risk.title}</h2>
+                    <p><strong>描述：</strong>${risk.description}</p>
+                    <h3>攻擊情境範例：</h3>
+                    <div class="attack-scenario">
+                        <p>${risk.attack_scenario}</p>
+                    </div>
+                    <h3>防禦建議：</h3>
+                    <div class="defense-list">
+                        <ul>
+                            ${risk.defense.map(d => `<li>${d}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                riskDetailsContainer.appendChild(detail);
+            });
+
+            // Handle click events
+            riskListContainer.addEventListener('click', (e) => {
+                if (e.target && e.target.matches('.risk-item')) {
+                    const key = e.target.dataset.riskKey;
+                    
+                    // Update active state for list
+                    riskListContainer.querySelectorAll('.risk-item').forEach(item => item.classList.remove('active'));
+                    e.target.classList.add('active');
+
+                    // Hide default message and show correct detail
+                    const defaultMessage = riskDetailsContainer.querySelector('.default-message');
+                    if (defaultMessage) {
+                        defaultMessage.style.display = 'none';
+                    }
+                    
+                    riskDetailsContainer.querySelectorAll('.risk-detail-content').forEach(detail => detail.classList.remove('active'));
+                    document.getElementById(key).classList.add('active');
+                }
+            });
+
+            // Activate the first item by default
+            if (riskListContainer.querySelector('.risk-item')) {
+                riskListContainer.querySelector('.risk-item').click();
+            }
+        });
+
+        const searchPages = [
+            { url: 'index.html', title: '首頁', keywords: 'home, main, index' },
+            { url: 'executive_summary.html', title: '高階主管摘要', keywords: 'summary, executive, report' },
+            { url: 'glossary.html', title: '專有名詞詞彙表', keywords: 'glossary, terms, definitions' },
+            { url: 'api_trends.html', title: '基礎入門', keywords: 'learning, introduction, basic' },
+            { url: 'owasp_api_matrix.html', title: '常見風險 (OWASP)', keywords: 'owasp, risk, matrix, top 10' },
+            { url: 'manufacturing_api_risk_matrix.html', title: '製造業風險', keywords: 'manufacturing, industry, risk' },
+            { url: 'api_security_recommendations.html', title: '防禦與建議', keywords: 'recommendations, defense, solution' },
+            { url: 'nist_csf_matrix.html', title: 'NIST 框架', keywords: 'nist, csf, framework' },
+            { url: 'interactive_matrix.html', title: '互動式矩陣', keywords: 'interactive, matrix, defense' },
+            { url: 'risk_solution_matrix.html', title: '總結方案', keywords: 'solution, summary, matrix' }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('keyup', () => {
+            const query = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredPages = searchPages.filter(page => 
+                    page.title.toLowerCase().includes(query) || 
+                    page.keywords.toLowerCase().includes(query)
+                );
+
+                if (filteredPages.length > 0) {
+                    filteredPages.forEach(page => {
+                        const link = document.createElement('a');
+                        link.href = page.url;
+                        link.textContent = page.title;
+                        searchResults.appendChild(link);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁 | Cloudforce 紘瑒科技 - API 安全研究專案</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="assets/images/cloudcorce-01.png" alt="Cloudforce Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="index.html" class="active">首頁</a>
+            <a href="executive_summary.html">高階主管摘要</a>
+            <div class="dropdown">
+                <button class="dropbtn">掌握API安全 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_trends.html">API安全趨勢</a>
+                    <a href="owasp_api_matrix.html">常見風險</a>
+                    <a href="manufacturing_api_risk_matrix.html">製造業風險</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">API 安全對策 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_security_recommendations.html">API 安全建議</a>
+                    <a href="nist_csf_matrix.html">NIST 框架</a>
+                    <a href="interactive_matrix.html">互動式矩陣</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">方案總結 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="risk_solution_matrix.html">總結方案</a>
+                    <a href="glossary.html">專有名詞詞彙表</a>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜尋...">
+            <div id="search-results"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>高科技製造業 API 安全研究專案</h1>
+            <p>專為製造業量身打造的 API 安全防護指南，從威脅識別到解決方案的完整學習體系</p>
+        </header>
+        
+        <!-- 專案目的說明 -->
+        <div class="project-purpose">
+            <div class="purpose-content">
+                <h2>📋 專案設置目的</h2>
+                <p>隨著工業 4.0 和數位轉型的推進，高科技製造業對 API 的依賴程度日益加深，從生產設備互聯、供應鏈整合到企業系統協作，API 已成為製造業數位基礎設施的核心。然而，API 層面的安全威脅也隨之激增，傳統的網路邊界防護已無法應對新型的 API 攻擊手法。</p>
+                
+                <p>本研究專案旨在為高科技製造業提供一套完整的 API 安全學習與實施指南，涵蓋最新的威脅分析、風險評估方法、防護策略建議，以及 CloudCoffer 產品如何協助建立全面的 API 安全防護體系。透過循序漸進的學習路徑，協助製造業資安團隊建立 API 安全專業能力，有效保護企業關鍵資產。</p>
+                
+                <div class="purpose-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🎯</span>
+                        <strong>深度威脅分析</strong> - 專門針對製造業環境的 API 風險研究
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🛡️</span>
+                        <strong>實務防護指南</strong> - 從策略規劃到技術實施的完整方案
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🏭</span>
+                        <strong>產業化定制</strong> - 結合工業 4.0 與 OT/IT 融合的特殊需求
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 學習路徑進度指示器 -->
+        <div class="learning-progress-section">
+            <div class="progress-header">
+                <h2>🎯 API 安全學習路徑</h2>
+                <p>循序漸進的專業指南，帶您從基礎概念到實戰應用</p>
+            </div>
+        </div>
+
+        <main class="learning-path">
+            <div class="card step-card" data-step="1">
+                <div class="step-indicator">
+                    <span class="step-number">1</span>
+                    <div class="step-badge trending">🔥 威脅分析</div>
+                </div>
+                <div class="card-content">
+                    <h3>API 安全趨勢研究</h3>
+                    <p>深度解析最新 API 威脅態勢、技術演進趨勢，以及 OWASP Top 10 完整分析</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">威脅儀表板</span>
+                        <span class="feature-tag">趨勢圖表</span>
+                        <span class="feature-tag">風險分級</span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a href="api_trends.html" class="btn btn-primary">開始探索</a>
+                </div>
+            </div>
+
+            <div class="card step-card" data-step="2">
+                <div class="step-indicator">
+                    <span class="step-number">2</span>
+                    <div class="step-badge risk">⚠️ 風險識別</div>
+                </div>
+                <div class="card-content">
+                    <h3>常見風險矩陣</h3>
+                    <p>探索 OWASP API Security Top 10 完整風險清單，了解每個威脅的具體影響</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">OWASP Top 10</span>
+                        <span class="feature-tag">風險矩陣</span>
+                        <span class="feature-tag">影響評估</span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a href="owasp_api_matrix.html" class="btn btn-primary">查看風險</a>
+                </div>
+            </div>
+
+            <div class="card step-card" data-step="3">
+                <div class="step-indicator">
+                    <span class="step-number">3</span>
+                    <div class="step-badge industry">🏭 行業聚焦</div>
+                </div>
+                <div class="card-content">
+                    <h3>製造業專屬風險</h3>
+                    <p>針對高科技製造業的特殊環境，分析工業 4.0、供應鏈等專屬風險挑戰</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">工業 4.0</span>
+                        <span class="feature-tag">供應鏈風險</span>
+                        <span class="feature-tag">OT/IT 融合</span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a href="manufacturing_api_risk_matrix.html" class="btn btn-primary">深入了解</a>
+                </div>
+            </div>
+
+            <div class="card step-card" data-step="4">
+                <div class="step-indicator">
+                    <span class="step-number">4</span>
+                    <div class="step-badge solution">💡 解決方案</div>
+                </div>
+                <div class="card-content">
+                    <h3>防護策略與建議</h3>
+                    <p>學習具體防禦措施、最佳實踐，以及 CloudCoffer 三大產品如何解決關鍵威脅</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">防護策略</span>
+                        <span class="feature-tag">產品方案</span>
+                        <span class="feature-tag">實施指南</span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a href="api_security_recommendations.html" class="btn btn-primary">查看建議</a>
+                </div>
+            </div>
+
+            <div class="card step-card" data-step="5">
+                <div class="step-indicator">
+                    <span class="step-number">5</span>
+                    <div class="step-badge framework">🏛️ 框架整合</div>
+                </div>
+                <div class="card-content">
+                    <h3>NIST 框架與互動工具</h3>
+                    <p>整合 NIST CSF 2.0 框架，提供雙視角分析與互動式防禦矩陣工具</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">雙視角切換</span>
+                        <span class="feature-tag">NIST CSF 2.0</span>
+                        <span class="feature-tag">互動矩陣</span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a href="nist_csf_matrix.html" class="btn btn-secondary">NIST 框架</a>
+                    <a href="interactive_matrix.html" class="btn btn-secondary">互動工具</a>
+                </div>
+            </div>
+
+            <div class="card step-card final-step" data-step="6">
+                <div class="step-indicator">
+                    <span class="step-number">6</span>
+                    <div class="step-badge summary">📋 總結實施</div>
+                </div>
+                <div class="card-content">
+                    <h3>總結方案矩陣</h3>
+                    <p>完整的風險與解決方案對應矩陣，包含優先級建議與具體實施步驟</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">解決方案矩陣</span>
+                        <span class="feature-tag">優先級規劃</span>
+                        <span class="feature-tag">行動指南</span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <a href="risk_solution_matrix.html" class="btn btn-accent">查看總結</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Cloudforce 紘瑒科技 - API 安全研究專案</p>
+    </footer>
+
+    <script>
+        const searchPages = [
+            { url: 'index.html', title: '首頁', keywords: 'home, main, index' },
+            { url: 'executive_summary.html', title: '高階主管摘要', keywords: 'summary, executive, report' },
+            { url: 'glossary.html', title: '專有名詞詞彙表', keywords: 'glossary, terms, definitions' },
+            { url: 'api_trends.html', title: '基礎入門', keywords: 'learning, introduction, basic' },
+            { url: 'owasp_api_matrix.html', title: '常見風險 (OWASP)', keywords: 'owasp, risk, matrix, top 10' },
+            { url: 'manufacturing_api_risk_matrix.html', title: '製造業風險', keywords: 'manufacturing, industry, risk' },
+            { url: 'api_security_recommendations.html', title: '防禦與建議', keywords: 'recommendations, defense, solution' },
+            { url: 'nist_csf_matrix.html', title: 'NIST 框架', keywords: 'nist, csf, framework' },
+            { url: 'interactive_matrix.html', title: '互動式矩陣', keywords: 'interactive, matrix, defense' },
+            { url: 'risk_solution_matrix.html', title: '總結方案', keywords: 'solution, summary, matrix' }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('keyup', () => {
+            const query = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredPages = searchPages.filter(page => 
+                    page.title.toLowerCase().includes(query) || 
+                    page.keywords.toLowerCase().includes(query)
+                );
+
+                if (filteredPages.length > 0) {
+                    filteredPages.forEach(page => {
+                        const link = document.createElement('a');
+                        link.href = page.url;
+                        link.textContent = page.title;
+                        searchResults.appendChild(link);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

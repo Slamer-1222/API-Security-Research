@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高階主管摘要 | Cloudforce 紘瑒科技 - API 安全研究專案</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="assets/images/cloudcorce-01.png" alt="Cloudforce Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">首頁</a>
+            <a href="executive_summary.html" class="active">高階主管摘要</a>
+            <div class="dropdown">
+                <button class="dropbtn">掌握API安全 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_trends.html">API安全趨勢</a>
+                    <a href="owasp_api_matrix.html">常見風險</a>
+                    <a href="manufacturing_api_risk_matrix.html">製造業風險</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">API 安全對策 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_security_recommendations.html">API 安全建議</a>
+                    <a href="nist_csf_matrix.html">NIST 框架</a>
+                    <a href="interactive_matrix.html">互動式矩陣</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">方案總結 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="risk_solution_matrix.html">總結方案</a>
+                    <a href="glossary.html">專有名詞詞彙表</a>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜尋...">
+            <div id="search-results"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>高階主管摘要 (Executive Summary)</h1>
+            <p>給決策者的三分鐘報告：了解 API 安全對高科技製造業的關鍵影響與行動方案。</p>
+        </header>
+
+        <main>
+            <div class="card problem-core-card">
+                <h2>問題核心：為何 API 安全是製造業的當務之急？</h2>
+                <p>在工業 4.0 的浪潮下，API (應用程式介面) 已成為串連供應鏈、智慧工廠 (OT/IT 整合) 與雲端服務的數位神經。然而，這種高度互聯也帶來了新的攻擊面。</p>
+                
+                <div class="key-statistic-visual">
+                    <div class="progress-container">
+                        <div class="circular-progress" data-percentage="61">
+                            <div class="progress-circle">
+                                <div class="progress-fill"></div>
+                                <div class="progress-center">
+                                    <span class="progress-number">61%</span>
+                                    <span class="progress-label">高風險事件</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-description-enhanced">
+                            <h4>API 安全漏洞直接相關</h4>
+                            <p>在所有高風險資安事件中，超過六成都與 API 安全問題直接相關，顯示傳統防護已無法應對現代威脅。</p>
+                            <div class="threat-breakdown">
+                                <div class="threat-item">
+                                    <span class="threat-icon">🔒</span>
+                                    <span class="threat-name">勒索軟體攻擊</span>
+                                    <span class="threat-impact">25%</span>
+                                </div>
+                                <div class="threat-item">
+                                    <span class="threat-icon">🔗</span>
+                                    <span class="threat-name">供應鏈攻擊</span>
+                                    <span class="threat-impact">20%</span>
+                                </div>
+                                <div class="threat-item">
+                                    <span class="threat-icon">💾</span>
+                                    <span class="threat-name">資料外洩事件</span>
+                                    <span class="threat-impact">16%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p>傳統防火牆無法有效防禦針對 API 的業務邏輯攻擊，使我們的核心生產與營運數據暴露於巨大風險之中。</p>
+            </div>
+
+            <div class="card risk-summary-card">
+                <h2>最大的風險：我們面臨的三大 API 威脅</h2>
+                <p>以下是對我們營運造成最大衝擊的三項 API 安全威脅：</p>
+                <div class="action-plan-grid">
+                    <div class="card action-card risk-card-style">
+                        <h3>1. 供應鏈的數位信任危機</h3>
+                        <p>我們的生產力高度依賴第三方供應商的 API，但安全標準參差不齊，已成為駭客入侵破口。</p>
+                        <div class="api-reference"><span class="api-highlight">(API10: 不安全的 API 消耗)</span></div>
+                    </div>
+                    <div class="card action-card risk-card-style">
+                        <h3>2. 內部權限的過度開放</h3>
+                        <p>開發與維運人員的 API 存取權限過大，缺乏有效監控，易導致內部威脅或帳號被盜後的災難性後果。</p>
+                        <div class="api-reference"><span class="api-highlight">(API1-3: 授權相關漏洞)</span></div>
+                    </div>
+                    <div class="card action-card risk-card-style">
+                        <h3>3. 看不見的「影子 API」</h3>
+                        <p>未經盤點和管理的測試用、舊版本或未記錄的 API 遍布各處，它們是駭客最愛的攻擊入口，而我們對其可視性幾乎為零。</p>
+                        <div class="api-reference"><span class="api-highlight">(API9: 資產管理不當)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card action-plan-section">
+                <h2>行動方案：最重要的三項投資</h2>
+                <p>為了保護我們的核心資產與營運連續性，我們建議立即啟動以下三項行動：</p>
+                <div class="action-plan-grid">
+                    <div class="card action-card">
+                        <h3>1. 導入「API 資產可視化」方案</h3>
+                        <p>我們無法保護看不見的東西。必須立即全面盤點所有 API，找出「影子 API」，並評估其風險等級。這是所有防禦的基礎。</p>
+                    </div>
+                    <div class="card action-card">
+                        <h3>2. 部署「AI 驅動的 API 威脅偵測」</h3>
+                        <p>傳統規則式防禦已失效。我們需要能理解正常業務邏輯、並即時偵測異常 API 行為 (如機器人濫用、資料竊取) 的新一代 AI 防護，實現「AI vs. AI」的對抗。</p>
+                    </div>
+                    <div class="card action-card">
+                        <h3>3. 建立「API 零信任架構」</h3>
+                        <p>預設不信任任何內部或外部的 API 呼叫。對每一次 API 存取都進行嚴格的身份驗證與權限檢查，確保最小權限原則的落實。</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div class="next-step-nav">
+            <h3>需要更深入的技術細節？</h3>
+            <p>查看我們的詳細分析和完整的防禦建議</p>
+            <a href="api_security_recommendations.html" class="btn">查看詳細技術建議</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Cloudforce 紘瑒科技 - API 安全研究專案</p>
+    </footer>
+
+    <script>
+        const searchPages = [
+            { url: 'index.html', title: '首頁', keywords: 'home, main, index' },
+            { url: 'executive_summary.html', title: '高階主管摘要', keywords: 'summary, executive, report' },
+            { url: 'glossary.html', title: '專有名詞詞彙表', keywords: 'glossary, terms, definitions' },
+            { url: 'api_trends.html', title: '基礎入門', keywords: 'learning, introduction, basic' },
+            { url: 'owasp_api_matrix.html', title: '常見風險 (OWASP)', keywords: 'owasp, risk, matrix, top 10' },
+            { url: 'manufacturing_api_risk_matrix.html', title: '製造業風險', keywords: 'manufacturing, industry, risk' },
+            { url: 'api_security_recommendations.html', title: '防禦與建議', keywords: 'recommendations, defense, solution' },
+            { url: 'nist_csf_matrix.html', title: 'NIST 框架', keywords: 'nist, csf, framework' },
+            { url: 'interactive_matrix.html', title: '互動式矩陣', keywords: 'interactive, matrix, defense' },
+            { url: 'risk_solution_matrix.html', title: '總結方案', keywords: 'solution, summary, matrix' }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('keyup', () => {
+            const query = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredPages = searchPages.filter(page => 
+                    page.title.toLowerCase().includes(query) || 
+                    page.keywords.toLowerCase().includes(query)
+                );
+
+                if (filteredPages.length > 0) {
+                    filteredPages.forEach(page => {
+                        const link = document.createElement('a');
+                        link.href = page.url;
+                        link.textContent = page.title;
+                        searchResults.appendChild(link);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>

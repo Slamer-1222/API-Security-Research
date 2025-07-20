@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>總結方案 | API 安全研究專案</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="assets/images/cloudcorce-01.png" alt="Cloudforce Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="index.html">首頁</a>
+            <a href="executive_summary.html">高階主管摘要</a>
+            <div class="dropdown">
+                <button class="dropbtn">掌握API安全 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_trends.html">API安全趨勢</a>
+                    <a href="owasp_api_matrix.html">常見風險</a>
+                    <a href="manufacturing_api_risk_matrix.html">製造業風險</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">API 安全對策 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="api_security_recommendations.html">API 安全建議</a>
+                    <a href="nist_csf_matrix.html">NIST 框架</a>
+                    <a href="interactive_matrix.html">互動式矩陣</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">方案總結 &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="risk_solution_matrix.html" class="active">總結方案</a>
+                    <a href="glossary.html">專有名詞詞彙表</a>
+                </div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜尋...">
+            <div id="search-results"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>API 安全總結方案矩陣</h1>
+            <p>整合 OWASP API Top 10 風險、解決方案與 CloudCoffer 產品功能的完整對應指南</p>
+        </header>
+        
+
+        <div class="matrix-table-container">
+            <div class="matrix-table-header">
+                <h2>📊 API 安全風險與解決方案對應矩陣</h2>
+                <p>以下矩陣展示了 OWASP API Security Top 10 每個風險的詳細說明、建議解決方案，以及 CloudCoffer 產品如何協助解決這些風險。</p>
+                
+                <div class="product-overview">
+                    <h4>💼 CloudCoffer 產品方案總覽</h4>
+                    <div class="products-grid-legend">
+                        <div class="product-summary-card-legend">
+                            <div class="product-summary-header-legend">
+                                <span class="product-summary-icon">📊</span>
+                                <h5>MatrixScope</h5>
+                            </div>
+                            <div class="product-summary-content-legend">
+                                <p class="product-summary-description">API 資產管理與風險評估平台</p>
+                                <div class="coverage-info">
+                                    <strong>涵蓋風險：</strong>API8, API9
+                                </div>
+                                <div class="key-features">
+                                    <span class="feature-tag">API 資產盤點</span>
+                                    <span class="feature-tag">風險評估</span>
+                                    <span class="feature-tag">配置檢查</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-summary-card-legend">
+                            <div class="product-summary-header-legend">
+                                <span class="product-summary-icon">🛡️</span>
+                                <h5>MatrixShield</h5>
+                            </div>
+                            <div class="product-summary-content-legend">
+                                <p class="product-summary-description">AI 驅動的即時威脅防護系統</p>
+                                <div class="coverage-info">
+                                    <strong>涵蓋風險：</strong>API1, API2, API3, API4, API5, API6, API7
+                                </div>
+                                <div class="key-features">
+                                    <span class="feature-tag">AI 威脅偵測</span>
+                                    <span class="feature-tag">行為分析</span>
+                                    <span class="feature-tag">即時防護</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-summary-card-legend">
+                            <div class="product-summary-header-legend">
+                                <span class="product-summary-icon">🔬</span>
+                                <h5>SandSphere</h5>
+                            </div>
+                            <div class="product-summary-content-legend">
+                                <p class="product-summary-description">開發階段安全檢測與供應鏈保護</p>
+                                <div class="coverage-info">
+                                    <strong>涵蓋風險：</strong>API10
+                                </div>
+                                <div class="key-features">
+                                    <span class="feature-tag">源碼檢測</span>
+                                    <span class="feature-tag">供應鏈安全</span>
+                                    <span class="feature-tag">第三方風險</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="enhanced-table-wrapper">
+                <table class="solution-matrix-table">
+                    <thead>
+                        <tr>
+                            <th class="risk-column">API 安全風險</th>
+                            <th class="description-column">風險說明</th>
+                            <th class="solution-column">對應解決方案</th>
+                            <th class="product-column">CloudCoffer 產品功能</th>
+                            <th class="priority-column">實施優先級</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="risk-row high-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API1:2023</div>
+                                <div class="risk-name">權限不當的物件級授權</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>未能正確驗證使用者是否有權存取特定物件，可能導致資料外洩或未授權操作</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>在每個請求中驗證物件所有權</li>
+                                    <li>使用 UUID 取代可預測的 ID</li>
+                                    <li>實施細粒度的授權檢查</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixshield">MatrixShield</div>
+                                <p>AI 驅動的異常行為分析，偵測未授權存取嘗試</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge high">高優先級</div>
+                                <div class="priority-timeline">立即實施</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row high-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API2:2023</div>
+                                <div class="risk-name">失效的身份驗證</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>驗證機制可被輕易繞過或破解，導致攻擊者冒充合法使用者</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>使用標準驗證框架 (OAuth 2.1, OIDC)</li>
+                                    <li>實施多因素驗證 (MFA)</li>
+                                    <li>強制使用 PKCE 和 mTLS</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixshield">MatrixShield</div>
+                                <p>AI 驅動的威脅偵測，識別異常登入行為</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge high">高優先級</div>
+                                <div class="priority-timeline">立即實施</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row medium-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API3:2023</div>
+                                <div class="risk-name">權限不當的物件屬性級授權</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>未能驗證使用者是否有權存取或修改物件的特定屬性</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>嚴格驗證傳入資料</li>
+                                    <li>僅允許修改合法屬性</li>
+                                    <li>實施屬性級別的存取控制</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixshield">MatrixShield</div>
+                                <p>深度封包檢測，監控敏感資料存取</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge medium">中優先級</div>
+                                <div class="priority-timeline">3-6個月</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row high-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API4:2023</div>
+                                <div class="risk-name">無限制的資源消耗</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>未對 API 請求的頻率或大小設限，導致 DoS 攻擊</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>實施速率限制和資源配額</li>
+                                    <li>設定請求大小上限</li>
+                                    <li>監控資源使用情況</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixshield">MatrixShield</div>
+                                <p>智能速率限制與資源使用監控</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge high">高優先級</div>
+                                <div class="priority-timeline">立即實施</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row medium-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API5:2023</div>
+                                <div class="risk-name">功能級授權失效</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>未能限制使用者只能存取其被授權的功能</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>預設拒絕存取原則</li>
+                                    <li>明確定義角色與權限</li>
+                                    <li>實施功能級別的存取控制</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixshield">MatrixShield</div>
+                                <p>存取控制與策略執行引擎</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge medium">中優先級</div>
+                                <div class="priority-timeline">3-6個月</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row medium-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API6:2023</div>
+                                <div class="risk-name">無限制存取敏感業務流程</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>攻擊者可利用對敏感業務流程的無限制存取進行濫用</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>偵測和限制自動化威脅</li>
+                                    <li>實施業務邏輯驗證</li>
+                                    <li>監控異常業務流程</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixshield">MatrixShield</div>
+                                <p>業務邏輯濫用防護與行為分析</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge medium">中優先級</div>
+                                <div class="priority-timeline">3-6個月</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row low-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API7:2023</div>
+                                <div class="risk-name">伺服器端請求偽造</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>攻擊者可誘使伺服器向未經授權的內部或外部服務發出請求</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>驗證和清理所有客戶端提供的 URL</li>
+                                    <li>使用 URL 白名單機制</li>
+                                    <li>限制伺服器對內部資源的存取</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixshield">MatrixShield</div>
+                                <p>請求來源驗證與 URL 過濾</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge low">低優先級</div>
+                                <div class="priority-timeline">6-12個月</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row high-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API8:2023</div>
+                                <div class="risk-name">安全配置錯誤</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>不安全的預設設定、不完整的設定或錯誤的 HTTP 標頭</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>建立可重複的安全強化流程</li>
+                                    <li>定期進行安全配置檢查</li>
+                                    <li>使用安全配置基準</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixscope">MatrixScope</div>
+                                <p>API 風險評估與配置檢查</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge high">高優先級</div>
+                                <div class="priority-timeline">立即實施</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row high-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API9:2023</div>
+                                <div class="risk-name">不當的資產管理</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>未能妥善管理所有 API 端點，特別是舊版本或測試 API</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>自動化 API 資產盤點</li>
+                                    <li>建立完整的 API 文檔</li>
+                                    <li>實施 API 版本生命週期管理</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag matrixscope">MatrixScope</div>
+                                <p>API 資產發現與盤點系統</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge high">高優先級</div>
+                                <div class="priority-timeline">立即實施</div>
+                            </td>
+                        </tr>
+                        <tr class="risk-row medium-priority">
+                            <td class="risk-cell">
+                                <div class="risk-id">API10:2023</div>
+                                <div class="risk-name">不安全的 API 消耗</div>
+                            </td>
+                            <td class="description-cell">
+                                <p>信任來自第三方 API 的資料而未進行驗證</p>
+                            </td>
+                            <td class="solution-cell">
+                                <ul>
+                                    <li>對第三方 API 資料進行嚴格驗證</li>
+                                    <li>實施 API 供應商安全評估</li>
+                                    <li>建立第三方 API 監控機制</li>
+                                </ul>
+                            </td>
+                            <td class="product-cell">
+                                <div class="product-tag sandsphere">SandSphere</div>
+                                <p>第三方 API 安全檢測與風險評估</p>
+                            </td>
+                            <td class="priority-cell">
+                                <div class="priority-badge medium">中優先級</div>
+                                <div class="priority-timeline">3-6個月</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="implementation-section">
+            <div class="section-header">
+                <h2>🚀 立即行動計劃</h2>
+                <p>根據優先級與風險等級，以下是推薦的實施步驟與時程安排</p>
+            </div>
+            
+            <div class="action-plan-summary">
+                <div class="priority-summary-grid">
+                    <div class="priority-summary-card high-priority-summary">
+                        <div class="priority-summary-header">
+                            <span class="priority-summary-icon">🔴</span>
+                            <h3>高優先級 (立即實施)</h3>
+                        </div>
+                        <div class="priority-summary-content">
+                            <div class="summary-count">6個關鍵風險</div>
+                            <ul class="summary-list">
+                                <li>API1: 權限不當的物件級授權</li>
+                                <li>API2: 失效的身份驗證</li>
+                                <li>API4: 無限制的資源消耗</li>
+                                <li>API8: 安全配置錯誤</li>
+                                <li>API9: 不當的資產管理</li>
+                            </ul>
+                            <div class="summary-products">
+                                <span class="product-tag matrixshield">MatrixShield</span>
+                                <span class="product-tag matrixscope">MatrixScope</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="priority-summary-card medium-priority-summary">
+                        <div class="priority-summary-header">
+                            <span class="priority-summary-icon">🟡</span>
+                            <h3>中優先級 (3-6個月)</h3>
+                        </div>
+                        <div class="priority-summary-content">
+                            <div class="summary-count">4個重要風險</div>
+                            <ul class="summary-list">
+                                <li>API3: 權限不當的物件屬性級授權</li>
+                                <li>API5: 功能級授權失效</li>
+                                <li>API6: 無限制存取敏感業務流程</li>
+                                <li>API10: 不安全的 API 消耗</li>
+                            </ul>
+                            <div class="summary-products">
+                                <span class="product-tag matrixshield">MatrixShield</span>
+                                <span class="product-tag sandsphere">SandSphere</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="priority-summary-card low-priority-summary">
+                        <div class="priority-summary-header">
+                            <span class="priority-summary-icon">🟢</span>
+                            <h3>低優先級 (6-12個月)</h3>
+                        </div>
+                        <div class="priority-summary-content">
+                            <div class="summary-count">1個特殊風險</div>
+                            <ul class="summary-list">
+                                <li>API7: 伺服器端請求偽造</li>
+                            </ul>
+                            <div class="summary-products">
+                                <span class="product-tag matrixshield">MatrixShield</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="page-navigation">
+            <a href="interactive_matrix.html" class="btn btn-secondary">&larr; 上一步：互動式矩陣</a>
+            <a href="glossary.html" class="btn btn-primary">下一步：專有名詞詞彙表 &rarr;</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Cloudforce 紘瑒科技 - API 安全研究專案</p>
+    </footer>
+
+    <script>
+        const searchPages = [
+            { url: 'index.html', title: '首頁', keywords: 'home, main, index' },
+            { url: 'executive_summary.html', title: '高階主管摘要', keywords: 'summary, executive, report' },
+            { url: 'glossary.html', title: '專有名詞詞彙表', keywords: 'glossary, terms, definitions' },
+            { url: 'api_trends.html', title: '基礎入門', keywords: 'learning, introduction, basic' },
+            { url: 'owasp_api_matrix.html', title: '常見風險 (OWASP)', keywords: 'owasp, risk, matrix, top 10' },
+            { url: 'manufacturing_api_risk_matrix.html', title: '製造業風險', keywords: 'manufacturing, industry, risk' },
+            { url: 'api_security_recommendations.html', title: '防禦與建議', keywords: 'recommendations, defense, solution' },
+            { url: 'nist_csf_matrix.html', title: 'NIST 框架', keywords: 'nist, csf, framework' },
+            { url: 'interactive_matrix.html', title: '互動式矩陣', keywords: 'interactive, matrix, defense' },
+            { url: 'risk_solution_matrix.html', title: '總結方案', keywords: 'solution, summary, matrix' }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('keyup', () => {
+            const query = searchInput.value.toLowerCase();
+            searchResults.innerHTML = '';
+
+            if (query.length > 1) {
+                const filteredPages = searchPages.filter(page => 
+                    page.title.toLowerCase().includes(query) || 
+                    page.keywords.toLowerCase().includes(query)
+                );
+
+                if (filteredPages.length > 0) {
+                    filteredPages.forEach(page => {
+                        const link = document.createElement('a');
+                        link.href = page.url;
+                        link.textContent = page.title;
+                        searchResults.appendChild(link);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
