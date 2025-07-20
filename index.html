@@ -76,8 +76,65 @@
             </div>
         </div>
 
+        <!-- Podcast 語音導覽 -->
+        <div class="podcast-intro">
+            <div class="podcast-header">
+                <h3>🎙️ API安全資安風暴探索 - 專家語音導覽</h3>
+                <p class="podcast-subtitle">第一次訪問？聽聽我們的專家快速介紹整體架構與關鍵洞察</p>
+            </div>
+            
+            <div class="podcast-player">
+                <div class="audio-controls">
+                    <audio controls preload="metadata" id="cisoPodcast">
+                        <source src="assets/audio/CISO_talk.mp3" type="audio/mpeg">
+                        您的瀏覽器不支援音頻播放功能
+                    </audio>
+                </div>
+                
+                <div class="podcast-info">
+                    <div class="info-item">
+                        <div class="info-label">總時長</div>
+                        <div class="info-value" id="totalDuration">載入中...</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">內容類型</div>
+                        <div class="info-value">專家對話</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">適合對象</div>
+                        <div class="info-value">資安長/IT主管</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">播放速度</div>
+                        <div class="info-value">
+                            <select id="playbackRate" onchange="changePlaybackRate()">
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1.0x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="podcast-chapters">
+                    <button class="chapter-btn" onclick="seekToChapter(0)">📖 專案介紹</button>
+                    <button class="chapter-btn" onclick="seekToChapter(120)">⚠️ 風險分析</button>
+                    <button class="chapter-btn" onclick="seekToChapter(240)">🛡️ 解決方案</button>
+                    <button class="chapter-btn" onclick="seekToChapter(360)">🎯 行動指南</button>
+                </div>
+            </div>
+            
+            <div class="skip-option">
+                <p style="color: var(--text-color-light); font-size: 0.9em; margin-bottom: 1rem;">
+                    偏好文字閱讀？您可以直接跳過語音導覽
+                </p>
+                <button class="skip-btn" onclick="scrollToLearningPath()">📝 略過，直接進入學習路徑</button>
+            </div>
+        </div>
+
         <!-- 學習路徑進度指示器 -->
-        <div class="learning-progress-section">
+        <div class="learning-progress-section" id="learningPath">
             <div class="progress-header">
                 <h2>🎯 API 安全學習路徑</h2>
                 <p>循序漸進的專業指南，帶您從基礎概念到實戰應用</p>
@@ -253,6 +310,47 @@
             if (!e.target.closest('.search-container')) {
                 searchResults.style.display = 'none';
             }
+        });
+
+        // Podcast 播放器功能
+        const audio = document.getElementById('cisoPodcast');
+        
+        // 載入音頻元數據後顯示總時長
+        audio.addEventListener('loadedmetadata', function() {
+            const minutes = Math.floor(audio.duration / 60);
+            const seconds = Math.floor(audio.duration % 60);
+            document.getElementById('totalDuration').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        });
+        
+        // 章節跳轉功能
+        function seekToChapter(time) {
+            audio.currentTime = time;
+            if (audio.paused) {
+                audio.play();
+            }
+        }
+        
+        // 播放速度調整
+        function changePlaybackRate() {
+            const rate = document.getElementById('playbackRate').value;
+            audio.playbackRate = parseFloat(rate);
+        }
+        
+        // 跳轉到學習路徑
+        function scrollToLearningPath() {
+            document.getElementById('learningPath').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        
+        // 音頻播放追踪（可選）
+        audio.addEventListener('play', function() {
+            console.log('Podcast playback started');
+        });
+        
+        audio.addEventListener('ended', function() {
+            console.log('Podcast playback completed');
         });
     </script>
 </body>
