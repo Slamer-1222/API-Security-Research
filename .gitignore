@@ -1,15 +1,7 @@
 # GitHub Pages 部署 - 排除非核心文件
 
-# 開發文件（包含敏感技術資訊）
+# 開發文件目錄（統一管理所有敏感技術資訊）
 docs/
-GITHUB_PAGES_DEPLOYMENT.md
-DEPLOYMENT_SECURITY_GUIDE.md
-GITIGNORE_USAGE_GUIDE.md
-STEP_BY_STEP_DEPLOYMENT.md
-CLEANUP_COMMANDS.md
-PROJECT_*.md
-CSS_OPTIMIZATION_PLAN.md
-DEVELOPMENT_HISTORY.md
 
 # 備份和歸檔文件
 歸檔/
@@ -26,7 +18,7 @@ DEVELOPMENT_HISTORY.md
 .DS_Store
 Thumbs.db
 
-# 其他不需要的檔案
+# 其他雜項檔案
 *第二階段*
 *討論內容*
 
